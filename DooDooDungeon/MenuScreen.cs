@@ -45,6 +45,8 @@ namespace DooDooDungeon
 
             f.Controls.Remove(this);
             f.Controls.Add(gs);
+
+            gs.Focus();
         }
 
         private void instructionsButton_Click(object sender, EventArgs e)

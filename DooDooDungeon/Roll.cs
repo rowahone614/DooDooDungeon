@@ -8,34 +8,34 @@ namespace DooDooDungeon
 {
     class Roll
     {
-        public static int rollX, rollY, rollSize;
-        public static string rollDirection;
+        public int x, y, size;
+        public string direction;
 
         public Roll(int _rollX, int _rollY, int _rollSize, string _rollDirection)
         {
-            _rollX = rollX;
-            _rollY = rollY;
-            _rollSize = rollSize;
-            _rollDirection = rollDirection;
+            x = _rollX;
+            y = _rollY;
+            size = _rollSize;
+            direction = _rollDirection;
         }
 
-        public void Move(string direction)
+        public void Move()
         { 
             if (direction == "Right")
             {
-                rollX += 30;
+                x += 75;
             }
             else if (direction == "Left")
             {
-                rollX -= 30;
+                x -= 75;
             }
             else if (direction == "Up")
             {
-                rollY -= 30;
+                y -= 62;
             }
             else if (direction == "Down")
             {
-                rollY += 30;
+                y += 62;
             }
         }
     }
