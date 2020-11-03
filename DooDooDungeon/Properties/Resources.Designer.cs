@@ -71,6 +71,24 @@ namespace DooDooDungeon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///.
+        /// </summary>
+        internal static string Level1 {
+            get {
+                return ResourceManager.GetString("Level1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///.
+        /// </summary>
+        internal static string Level2 {
+            get {
+                return ResourceManager.GetString("Level2", resourceCulture);
+                }
+        }
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap New_Piskel__2_ {
@@ -81,6 +99,14 @@ namespace DooDooDungeon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///.
+        /// </summary>
+        internal static string Level3 {
+            get {
+                return ResourceManager.GetString("Level3", resourceCulture);
+                }
+                }
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Waste_Warroir {
