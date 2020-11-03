@@ -10,7 +10,7 @@ namespace DooDooDungeon
 
     class Wall
     {
-        public static int x, y, Width, Height;
+        public int x, y, Width, Height;
 
         public Wall(int _x, int _y, int _Width, int _Height)
         {

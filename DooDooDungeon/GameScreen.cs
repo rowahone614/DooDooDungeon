@@ -25,6 +25,17 @@ namespace DooDooDungeon
         int rollStartY = 20;
         int rollSize = 40;
         int moveCounter = 0;
+
+        int x = 0;
+        int y = 0;
+        int Width = 0;
+        int Height = 0;
+
+        List<Wall> wallList = new List<Wall>();
+
+        //used to draw walls on screen
+        SolidBrush wallBrush = new SolidBrush(Color.Black);
+
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             if (turnCounter)
@@ -58,6 +69,36 @@ namespace DooDooDungeon
 
         public void OnStart()
         {
+            XmlReader level1Reader = XmlReader.Create("Resources/Level1.xml");
+
+            while (level1Reader.Read())
+
+            {
+
+                if (level1Reader.NodeType == XmlNodeType.Text)
+
+                {
+                    //level1Reader.ReadToNextSibling("x");
+                    x = Convert.ToInt16(level1Reader.ReadString());
+
+                    level1Reader.ReadToNextSibling("y");
+                    y = Convert.ToInt16(level1Reader.ReadString());
+
+                    level1Reader.ReadToNextSibling("Width");
+                    Width = Convert.ToInt16(level1Reader.ReadString());
+
+                    level1Reader.ReadToNextSibling("Height");
+                    Height = Convert.ToInt16(level1Reader.ReadString());
+
+                    Wall w = new Wall(x, y, Width, Height);
+
+                    wallList.Add(w);
+
+                }
+
+            }
+            level1Reader.Close();
+
         }
         #region Key Declaration
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
@@ -125,7 +166,13 @@ namespace DooDooDungeon
         
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+          
 
+            //draw walls to screen
+            foreach (Wall w in wallList)
+            {              
+                e.Graphics.FillRectangle(wallBrush, w.x, w.y, w.Width, w.Height);
+            }
         }
     }
 }
