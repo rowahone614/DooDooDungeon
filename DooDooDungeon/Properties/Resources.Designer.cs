@@ -87,6 +87,14 @@ namespace DooDooDungeon.Properties {
         internal static string Level2 {
             get {
                 return ResourceManager.GetString("Level2", resourceCulture);
+                }
+        }
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap New_Piskel__2_ {
+            get {
+                object obj = ResourceManager.GetObject("New_Piskel__2_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -97,6 +105,14 @@ namespace DooDooDungeon.Properties {
         internal static string Level3 {
             get {
                 return ResourceManager.GetString("Level3", resourceCulture);
+                }
+                }
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Waste_Warroir {
+            get {
+                object obj = ResourceManager.GetObject("Waste_Warroir", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
