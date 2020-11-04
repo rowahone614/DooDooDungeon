@@ -38,7 +38,7 @@ namespace DooDooDungeon
         int Width = 0;
         int Height = 0;
 
-        int levelNumber = 1;
+        int levelNumber = 2;
 
         List<Wall> wallList = new List<Wall>();
 
@@ -251,46 +251,7 @@ namespace DooDooDungeon
                 Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
             }
 
-            Rectangle rollRec = new Rectangle(Roll.rollX, Roll.rollY, Roll.rollSize, Roll.rollSize);
-        }
-
-        public void TurnTracker()
-        {
-            if (turnCounter)
-            {
-                if (wKeyDown)
-                {
-                    Roll.rollDirection = "Up";
-                    turnCounter = false;
-                }
-                else if (aKeyDown)
-                {
-                    Roll.rollDirection = "Left";
-                    turnCounter = false;
-                }
-                else if (sKeyDown)
-                {
-                    Roll.rollDirection = "Down";
-                    turnCounter = false;
-                }
-                else if (dKeyDown)
-                {
-                    Roll.rollDirection = "Right";
-                    turnCounter = false;
-                }
-            }
-            if (turnCounter == false)
-            {
-
-            }
-        }
-
-        private void gameTimer_Tick(object sender, EventArgs e)
-        {
-            LevelReading();
-            HitBoxCreation();
-            TurnTracker();
-
+            Rectangle rollRec = new Rectangle(roll.x, roll.y, roll.size, roll.size);
         }
     }
 }
