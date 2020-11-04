@@ -32,6 +32,7 @@ namespace DooDooDungeon
         int doodooSize = 40;
 
         int moveCounter = 0;
+        int tickCounter = 0;
         Roll roll;
         DooDoo doodoo;
         private void gameTimer_Tick(object sender, EventArgs e)
