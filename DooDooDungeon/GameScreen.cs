@@ -32,6 +32,18 @@ namespace DooDooDungeon
         int doodooSize = 40;
 
         int moveCounter = 0;
+
+        int x = 0;
+        int y = 0;
+        int Width = 0;
+        int Height = 0;
+
+        int levelNumber = 1;
+
+        List<Wall> wallList = new List<Wall>();
+
+        //used to draw walls on screen
+        SolidBrush wallBrush = new SolidBrush(Color.Black);
         int tickCounter = 0;
         Roll roll;
         DooDoo doodoo;
@@ -124,6 +136,8 @@ namespace DooDooDungeon
         }
         public void OnStart()
         {
+            LevelReading();
+
             roll = new Roll(rollStartX, rollStartY, rollSize, "None");
             doodoo = new DooDoo(doodooStartX, doodooStartY, doodooSize, "None");
         }
@@ -155,7 +169,7 @@ namespace DooDooDungeon
                     break;
                 case Keys.D:
                     dKeyDown = false;
-                    break;                   
+                    break;
             }
         }
 
@@ -190,11 +204,98 @@ namespace DooDooDungeon
             }
         }
         #endregion
-        
+
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
-            e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
+             e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
+             e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
+
+            //draw walls to screen
+            foreach (Wall w in wallList)
+            {
+                e.Graphics.FillRectangle(wallBrush, w.x, w.y, w.Width, w.Height);
+            }
+        }
+
+        public void LevelReading()
+        {
+            XmlReader reader = XmlReader.Create("Resources/Level" + Convert.ToString(levelNumber) + ".xml", null);
+
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Text)
+                {
+                    int x = Convert.ToInt16(reader.ReadString());
+
+                    reader.ReadToFollowing("y");
+                    int y = Convert.ToInt16(reader.ReadString());
+
+                    reader.ReadToFollowing("Width");
+                    int Width = Convert.ToInt16(reader.ReadString());
+
+                    reader.ReadToFollowing("Height");
+                    int Height = Convert.ToInt16(reader.ReadString());
+
+                    Wall w = new Wall(x, y, Width, Height);
+
+                    wallList.Add(w);
+                }
+            }
+            reader.Close();
+        }
+
+        public void HitBoxCreation()
+        {
+            foreach (Wall w in wallList)
+            {
+                Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
+            }
+
+            Rectangle rollRec = new Rectangle(Roll.rollX, Roll.rollY, Roll.rollSize, Roll.rollSize);
+        }
+
+        public void TurnTracker()
+        {
+            if (turnCounter)
+            {
+                if (wKeyDown)
+                {
+                    Roll.rollDirection = "Up";
+                    turnCounter = false;
+                }
+                else if (aKeyDown)
+                {
+                    Roll.rollDirection = "Left";
+                    turnCounter = false;
+                }
+                else if (sKeyDown)
+                {
+                    Roll.rollDirection = "Down";
+                    turnCounter = false;
+                }
+                else if (dKeyDown)
+                {
+                    Roll.rollDirection = "Right";
+                    turnCounter = false;
+                }
+            }
+            if (turnCounter == false)
+            {
+
+            }
+        }
+
+        private void gameTimer_Tick(object sender, EventArgs e)
+        {
+            LevelReading();
+            HitBoxCreation();
+            TurnTracker();
+
         }
     }
 }
+
+
+
+
+
