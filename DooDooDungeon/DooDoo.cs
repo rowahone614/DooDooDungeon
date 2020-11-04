@@ -3,40 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace DooDooDungeon
 {
-    class DooDoo
+    public class DooDoo
     {
-        public static int doodooX, doodooY, doodooSize;
-        public static string doodooDirection;
+        public int x, y, size;
+        public string direction;
 
         public DooDoo(int _doodooX, int _doodooY, int _doodooSize, string _doodooDirection)
         {
-            _doodooX = doodooX;
-            _doodooY = doodooY;
-            _doodooSize = doodooSize;
-            _doodooDirection = doodooDirection;
+            x = _doodooX;
+            y = _doodooY;
+            size = _doodooSize;
+            direction = _doodooDirection;
         }
 
-        public void Move(string direction)
+        public void Move()
         {
             if (direction == "Right")
             {
-                doodooX += 30;
+                x += 75;
             }
             else if (direction == "Left")
             {
-                doodooX -= 30;
+                x -= 75;
             }
             else if (direction == "Up")
             {
-                doodooY -= 30;
+                y -= 62;
             }
             else if (direction == "Down")
             {
-                doodooY += 30;
+                y += 62;
             }
+        }
+
+        public Boolean Collision(Roll r)
+        {
+            Rectangle rollRec = new Rectangle(r.x, r.y, r.size, r.size);
+            Rectangle wasteRec = new Rectangle(x, y, size, size);
+
+            return wasteRec.IntersectsWith(rollRec);
         }
     }
 }

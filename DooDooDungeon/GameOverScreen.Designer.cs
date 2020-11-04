@@ -69,6 +69,7 @@
             this.menuButton.TabIndex = 5;
             this.menuButton.Text = "Return to Menu";
             this.menuButton.UseVisualStyleBackColor = true;
+            this.menuButton.Click += new System.EventHandler(this.menuButton_Click);
             this.menuButton.Enter += new System.EventHandler(this.menuButton_Enter);
             // 
             // exitButton
@@ -80,6 +81,7 @@
             this.exitButton.TabIndex = 6;
             this.exitButton.Text = "Exit Game";
             this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             this.exitButton.Enter += new System.EventHandler(this.exitButton_Enter);
             // 
             // playAgainButton
@@ -91,6 +93,7 @@
             this.playAgainButton.TabIndex = 7;
             this.playAgainButton.Text = "Play Again";
             this.playAgainButton.UseVisualStyleBackColor = true;
+            this.playAgainButton.Click += new System.EventHandler(this.playAgainButton_Click);
             this.playAgainButton.Enter += new System.EventHandler(this.playAgainButton_Enter);
             // 
             // dookiePicture
