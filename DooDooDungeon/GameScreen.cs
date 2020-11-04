@@ -31,6 +31,8 @@ namespace DooDooDungeon
         int Width = 0;
         int Height = 0;
 
+        int levelNumber = 1;
+
         List<Wall> wallList = new List<Wall>();
 
         //used to draw walls on screen
@@ -40,22 +42,22 @@ namespace DooDooDungeon
         {
             if (turnCounter)
             {
-                if(wKeyDown)
+                if (wKeyDown)
                 {
                     Roll.rollDirection = "Up";
                     turnCounter = false;
                 }
-                else if(aKeyDown)
+                else if (aKeyDown)
                 {
                     Roll.rollDirection = "Left";
                     turnCounter = false;
                 }
-                else if(sKeyDown)
+                else if (sKeyDown)
                 {
                     Roll.rollDirection = "Down";
                     turnCounter = false;
                 }
-                else if(dKeyDown)
+                else if (dKeyDown)
                 {
                     Roll.rollDirection = "Right";
                     turnCounter = false;
@@ -69,35 +71,7 @@ namespace DooDooDungeon
 
         public void OnStart()
         {
-            XmlReader level1Reader = XmlReader.Create("Resources/Level1.xml");
-
-            while (level1Reader.Read())
-
-            {
-
-                if (level1Reader.NodeType == XmlNodeType.Text)
-
-                {
-                    //level1Reader.ReadToNextSibling("x");
-                    x = Convert.ToInt16(level1Reader.ReadString());
-
-                    level1Reader.ReadToNextSibling("y");
-                    y = Convert.ToInt16(level1Reader.ReadString());
-
-                    level1Reader.ReadToNextSibling("Width");
-                    Width = Convert.ToInt16(level1Reader.ReadString());
-
-                    level1Reader.ReadToNextSibling("Height");
-                    Height = Convert.ToInt16(level1Reader.ReadString());
-
-                    Wall w = new Wall(x, y, Width, Height);
-
-                    wallList.Add(w);
-
-                }
-
-            }
-            level1Reader.Close();
+            LevelReading();
 
         }
         #region Key Declaration
@@ -128,7 +102,7 @@ namespace DooDooDungeon
                     break;
                 case Keys.D:
                     dKeyDown = false;
-                    break;                   
+                    break;
             }
         }
 
@@ -163,16 +137,60 @@ namespace DooDooDungeon
             }
         }
         #endregion
-        
+
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-          
+
 
             //draw walls to screen
             foreach (Wall w in wallList)
-            {              
+            {
                 e.Graphics.FillRectangle(wallBrush, w.x, w.y, w.Width, w.Height);
             }
         }
+
+        public void LevelReading()
+        {
+            XmlReader reader = XmlReader.Create("Resources/Level" + Convert.ToString(levelNumber) + ".xml", null);
+
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Text)
+                {
+                    int x = Convert.ToInt16(reader.ReadString());
+
+                    reader.ReadToFollowing("y");
+                    int y = Convert.ToInt16(reader.ReadString());
+
+                    reader.ReadToFollowing("Width");
+                    int Width = Convert.ToInt16(reader.ReadString());
+
+                    reader.ReadToFollowing("Height");
+                    int Height = Convert.ToInt16(reader.ReadString());
+
+                    Wall w = new Wall(x, y, Width, Height);
+
+                    wallList.Add(w);
+                }
+            }
+            reader.Close();
+        }
+
+        public void HitBoxCreation()
+        {
+            foreach (Wall w in wallList)
+            {
+                Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
+            }
+
+            Rectangle rollRec = new Rectangle(Roll.rollX, Roll.rollY, Roll.rollSize, Roll.rollSize);
+        }
+
     }
+
 }
+
+
+
+
+
