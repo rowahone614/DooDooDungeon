@@ -38,37 +38,6 @@ namespace DooDooDungeon
         //used to draw walls on screen
         SolidBrush wallBrush = new SolidBrush(Color.Black);
 
-        private void gameTimer_Tick(object sender, EventArgs e)
-        {
-            if (turnCounter)
-            {
-                if (wKeyDown)
-                {
-                    Roll.rollDirection = "Up";
-                    turnCounter = false;
-                }
-                else if (aKeyDown)
-                {
-                    Roll.rollDirection = "Left";
-                    turnCounter = false;
-                }
-                else if (sKeyDown)
-                {
-                    Roll.rollDirection = "Down";
-                    turnCounter = false;
-                }
-                else if (dKeyDown)
-                {
-                    Roll.rollDirection = "Right";
-                    turnCounter = false;
-                }
-            }
-            if (turnCounter == false)
-            {
-
-            }
-        }
-
         public void OnStart()
         {
             LevelReading();
@@ -186,8 +155,46 @@ namespace DooDooDungeon
             Rectangle rollRec = new Rectangle(Roll.rollX, Roll.rollY, Roll.rollSize, Roll.rollSize);
         }
 
-    }
+        public void TurnTracker()
+        {
+            if (turnCounter)
+            {
+                if (wKeyDown)
+                {
+                    Roll.rollDirection = "Up";
+                    turnCounter = false;
+                }
+                else if (aKeyDown)
+                {
+                    Roll.rollDirection = "Left";
+                    turnCounter = false;
+                }
+                else if (sKeyDown)
+                {
+                    Roll.rollDirection = "Down";
+                    turnCounter = false;
+                }
+                else if (dKeyDown)
+                {
+                    Roll.rollDirection = "Right";
+                    turnCounter = false;
+                }
+            }
+            if (turnCounter == false)
+            {
 
+            }
+        }
+
+        private void gameTimer_Tick(object sender, EventArgs e)
+        {
+            LevelReading();
+            HitBoxCreation();
+            TurnTracker();
+
+
+        }
+    }
 }
 
 
