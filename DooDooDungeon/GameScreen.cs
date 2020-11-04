@@ -21,34 +21,46 @@ namespace DooDooDungeon
 
         Boolean leftKeyDown, rightKeyDown, downKeyDown, upKeyDown, wKeyDown, aKeyDown, sKeyDown, dKeyDown;
         Boolean turnCounter = true;
+        Boolean doodooTopCollision = false;
+        Boolean doodooBottomCollision = false;
+        Boolean doodooRightCollision = false;
+        Boolean doodooLeftCollision = false;
 
         int rollStartX = 20;
         int rollStartY = 20;
 
-        int doodooStartX = 540;
-        int doodooStartY = 440;
+        int doodooStartX = 470;
+        int doodooStartY = 447;
 
         int rollSize = 40;
         int doodooSize = 40;
 
         int moveCounter = 0;
 
-        int x = 0;
-        int y = 0;
+        int x;
+        int y;
         int Width = 0;
         int Height = 0;
 
         int levelNumber = 1;
 
         List<Wall> wallList = new List<Wall>();
+        List<Rectangle> wallRecList = new List<Rectangle>();
 
         //used to draw walls on screen
         SolidBrush wallBrush = new SolidBrush(Color.Black);
+        SolidBrush redBrush = new SolidBrush(Color.Red);
+
         int tickCounter = 0;
+
         Roll roll;
         DooDoo doodoo;
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+
+            x = roll.x;
+            y = roll.y;
+
             if (turnCounter && moveCounter == 0)
             {
                 if (wKeyDown && roll.y - 62 >= 0)
@@ -65,14 +77,14 @@ namespace DooDooDungeon
                     moveCounter++;
                     turnCounter = false;
                 }
-                else if (sKeyDown && roll.y + 102 <= this.Height)
+                else if (sKeyDown && roll.y + 102 <= 500)
                 {
                     roll.direction = "Down";
                     roll.Move();
                     moveCounter++;
                     turnCounter = false;
                 }
-                else if (dKeyDown && roll.x + 122 <= this.Width)
+                else if (dKeyDown && roll.x + 122 <= 600)
                 {
                     roll.direction = "Right";
                     roll.Move();
@@ -80,31 +92,44 @@ namespace DooDooDungeon
                     turnCounter = false;
                 }
             }
-            if (turnCounter == false && moveCounter > 0)
+            if (turnCounter == false && moveCounter > 0 && tickCounter > 10)
             {
-                if (upKeyDown && doodoo.y - 62 >= 0)
+                if (upKeyDown && doodoo.y - 62 >= 0 && doodooTopCollision == false)
                 {
                     doodoo.direction = "Up";
                     SwitchMove();
                 }
-                else if (leftKeyDown && doodoo.x - 75 >= 0)
+                else if (leftKeyDown && doodoo.x - 75 >= 0 && doodooLeftCollision == false)
                 {
                     doodoo.direction = "Left";
                     SwitchMove();
                 }
-                else if (downKeyDown && doodoo.y + 122 <= this.Height)
+                else if (downKeyDown && doodoo.y + 102 <= 500 && doodooBottomCollision == false)
                 {
                     doodoo.direction = "Down";
                     SwitchMove();
-                    
+
                 }
-                else if (rightKeyDown && doodoo.x + 122 <= this.Width)
+                else if (rightKeyDown && doodoo.x + 122 <= 600 && doodooRightCollision == false)
                 {
                     doodoo.direction = "Right";
                     SwitchMove();
                 }
+                tickCounter = 0;
+            }
+
+
+            if (turnCounter)
+            {
+                turnLabel.Text = "Roll's Turn";
+            }
+            else if (turnCounter == false)
+            {
+                turnLabel.Text = "Waste Warrior's Turn";
             }
             CollisionCheck();
+            DooDooWallHitBox();
+            tickCounter++;
             Refresh();
         }
 
@@ -207,8 +232,9 @@ namespace DooDooDungeon
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-             e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
-             e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
+            e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
+            e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
+
 
             //draw walls to screen
             foreach (Wall w in wallList)
@@ -243,20 +269,69 @@ namespace DooDooDungeon
             }
             reader.Close();
         }
-
-        public void HitBoxCreation()
+    
+        public void DooDooWallHitBox()
         {
-            foreach (Wall w in wallList)
-            {
-                Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
-            }
+            Rectangle rightDooDooRec = new Rectangle(doodoo.x + 60, doodoo.y - 20, 10, 10);
+            Rectangle leftDooDooRec = new Rectangle(doodoo.x - 20, doodoo.y - 20, 10, 10);
+            Rectangle bottomDooDooRec = new Rectangle(doodoo.x + 20, doodoo.y - 60, 10, 10);
+            Rectangle topDooDooRec = new Rectangle(doodoo.x + 20, doodoo.y + 20, 10, 10);
 
-            Rectangle rollRec = new Rectangle(roll.x, roll.y, roll.size, roll.size);
+            foreach (Wall l in wallList)
+            {
+                Rectangle wallRec = new Rectangle(l.x, l.y, l.Width, l.Height);
+                wallRecList.Add(wallRec);
+            }
+            foreach (Rectangle r in wallRecList)
+            {
+                if(rightDooDooRec.IntersectsWith(r))
+                {
+                    doodooRightCollision = true;
+                }
+            }
+            foreach (Rectangle r in wallRecList)
+            {
+                if(leftDooDooRec.IntersectsWith(r))
+                {
+                    doodooLeftCollision = true;
+                }
+            }
+            foreach (Rectangle r in wallRecList)
+            {
+                if (bottomDooDooRec.IntersectsWith(r))
+                {
+                    doodooBottomCollision = true;
+                }
+            }
+            foreach (Rectangle r in wallRecList)
+            {
+                if (topDooDooRec.IntersectsWith(r))
+                {
+                    doodooTopCollision = true;
+                }
+            }
         }
+
+        //public void rollWallHitBox()
+        //{
+
+        //    Rectangle rightrollRec = new Rectangle(roll.x + 60, roll.y - 20, 10, 10);
+        //    Rectangle leftrollRec = new Rectangle(roll.x - 60, roll.y - 20, 10, 10);
+        //    Rectangle bottomrollRec = new Rectangle(roll.x + 20, roll.y - 60, 10, 10);
+        //    Rectangle toprollRec = new Rectangle(roll.x + 20, roll.y + 20, 10, 10);
+
+        //    foreach (Wall l in wallList)
+        //    {
+        //        Rectangle wallRec = new Rectangle(l.x, l.y, l.Width, l.Height);
+        //        wallRecList.Add(wallRec);
+        //    }
+        //    foreach (Rectangle r in wallRecList)
+        //    {
+        //        if (rightrrollRec.IntersectsWith(r))
+        //        {
+        //            rollRightCollision = true;
+        //        }
+        //    }
+        //}
     }
 }
-
-
-
-
-
