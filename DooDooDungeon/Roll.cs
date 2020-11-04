@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DooDooDungeon
 {
-    class Roll
+    public class Roll
     {
         public int x, y, size;
         public string direction;

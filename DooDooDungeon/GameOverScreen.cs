@@ -37,5 +37,32 @@ namespace DooDooDungeon
             exitButton.BackColor = Color.LightGray;
             playAgainButton.BackColor = Color.Brown;
         }
+
+        private void menuButton_Click(object sender, EventArgs e)
+        {
+            Form f = this.FindForm();
+            MenuScreen ms = new MenuScreen();
+
+            f.Controls.Remove(this);
+            f.Controls.Add(ms);
+
+            ms.Focus();
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void playAgainButton_Click(object sender, EventArgs e)
+        {
+            Form f = this.FindForm();
+            GameScreen gs = new GameScreen();
+
+            f.Controls.Remove(this);
+            f.Controls.Add(gs);
+
+            gs.Focus();
+        }
     }
 }

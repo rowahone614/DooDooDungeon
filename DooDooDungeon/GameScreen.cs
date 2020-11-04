@@ -36,63 +36,91 @@ namespace DooDooDungeon
         DooDoo doodoo;
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            if (turnCounter)
+            if (turnCounter && moveCounter == 0)
             {
-                if(wKeyDown)
+                if (wKeyDown && roll.y - 62 >= 0)
                 {
                     roll.direction = "Up";
                     roll.Move();
+                    moveCounter++;
                     turnCounter = false;
                 }
-                else if(aKeyDown)
+                else if (aKeyDown && roll.x - 75 >= 0)
                 {
                     roll.direction = "Left";
                     roll.Move();
+                    moveCounter++;
                     turnCounter = false;
                 }
-                else if(sKeyDown)
+                else if (sKeyDown && roll.y + 102 <= this.Height)
                 {
                     roll.direction = "Down";
                     roll.Move();
+                    moveCounter++;
                     turnCounter = false;
                 }
-                else if(dKeyDown)
+                else if (dKeyDown && roll.x + 122 <= this.Width)
                 {
                     roll.direction = "Right";
                     roll.Move();
+                    moveCounter++;
                     turnCounter = false;
                 }
             }
-            if (turnCounter == false)
+            if (turnCounter == false && moveCounter > 0)
             {
-                if (upKeyDown && doodoo.y + 62 >= 0)
+                if (upKeyDown && doodoo.y - 62 >= 0)
                 {
                     doodoo.direction = "Up";
-                    doodoo.Move();
-                    turnCounter = true;
+                    SwitchMove();
                 }
                 else if (leftKeyDown && doodoo.x - 75 >= 0)
                 {
                     doodoo.direction = "Left";
-                    doodoo.Move();
-                    turnCounter = true;
+                    SwitchMove();
                 }
                 else if (downKeyDown && doodoo.y + 122 <= this.Height)
                 {
                     doodoo.direction = "Down";
-                    doodoo.Move();
-                    turnCounter = true;
+                    SwitchMove();
+                    
                 }
                 else if (rightKeyDown && doodoo.x + 122 <= this.Width)
                 {
                     doodoo.direction = "Right";
-                    doodoo.Move();
-                    turnCounter = true;
+                    SwitchMove();
                 }
             }
+            CollisionCheck();
             Refresh();
         }
 
+        public void CollisionCheck()
+        {
+            if (doodoo.Collision(roll))
+            {
+                gameTimer.Enabled = false;
+
+                Form f = this.FindForm();
+                GameOverScreen gos = new GameOverScreen();
+
+                f.Controls.Remove(this);
+                f.Controls.Add(gos);
+
+                gos.Focus();
+            }
+        }
+
+        public void SwitchMove()
+        {
+            doodoo.Move();
+            moveCounter++;
+            if (moveCounter == 3)
+            {
+                moveCounter = 0;
+                turnCounter = true;
+            }
+        }
         public void OnStart()
         {
             roll = new Roll(rollStartX, rollStartY, rollSize, "None");

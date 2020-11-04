@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace DooDooDungeon
 {
-    class DooDoo
+    public class DooDoo
     {
         public int x, y, size;
         public string direction;
@@ -37,6 +38,14 @@ namespace DooDooDungeon
             {
                 y += 62;
             }
+        }
+
+        public Boolean Collision(Roll r)
+        {
+            Rectangle rollRec = new Rectangle(r.x, r.y, r.size, r.size);
+            Rectangle wasteRec = new Rectangle(x, y, size, size);
+
+            return wasteRec.IntersectsWith(rollRec);
         }
     }
 }
