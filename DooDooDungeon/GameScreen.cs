@@ -38,7 +38,7 @@ namespace DooDooDungeon
         int Width = 0;
         int Height = 0;
 
-        int levelNumber = 2;
+        int levelNumber = 1;
 
         List<Wall> wallList = new List<Wall>();
 
