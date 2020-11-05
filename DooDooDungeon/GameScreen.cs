@@ -61,6 +61,8 @@ namespace DooDooDungeon
             x = roll.x;
             y = roll.y;
 
+            DooDooWallHitBox();
+
             if (turnCounter && moveCounter == 0)
             {
                 if (wKeyDown && roll.y - 62 >= 0)
@@ -128,7 +130,6 @@ namespace DooDooDungeon
                 turnLabel.Text = "Waste Warrior's Turn";
             }
             CollisionCheck();
-            DooDooWallHitBox();
             tickCounter++;
             Refresh();
         }
@@ -235,6 +236,15 @@ namespace DooDooDungeon
             e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
             e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
 
+            Rectangle rightDooDooRec = new Rectangle(doodoo.x + 53, doodoo.y + 18, 10, 10);
+            Rectangle leftDooDooRec = new Rectangle(doodoo.x - 24, doodoo.y + 18, 10, 10);
+            Rectangle bottomDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y - 14, 10, 10);
+            Rectangle topDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y + 48, 10, 10);
+
+            e.Graphics.FillRectangle(redBrush, rightDooDooRec);
+            e.Graphics.FillRectangle(redBrush, leftDooDooRec);
+            e.Graphics.FillRectangle(redBrush, bottomDooDooRec);
+            e.Graphics.FillRectangle(redBrush, topDooDooRec);
 
             //draw walls to screen
             foreach (Wall w in wallList)
@@ -272,10 +282,10 @@ namespace DooDooDungeon
     
         public void DooDooWallHitBox()
         {
-            Rectangle rightDooDooRec = new Rectangle(doodoo.x + 60, doodoo.y - 20, 10, 10);
-            Rectangle leftDooDooRec = new Rectangle(doodoo.x - 20, doodoo.y - 20, 10, 10);
-            Rectangle bottomDooDooRec = new Rectangle(doodoo.x + 20, doodoo.y - 60, 10, 10);
-            Rectangle topDooDooRec = new Rectangle(doodoo.x + 20, doodoo.y + 20, 10, 10);
+            Rectangle rightDooDooRec = new Rectangle(doodoo.x + 53, doodoo.y + 18, 10, 10);
+            Rectangle leftDooDooRec = new Rectangle(doodoo.x - 24, doodoo.y + 18, 10, 10);
+            Rectangle bottomDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y - 14, 10, 10);
+            Rectangle topDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y + 48, 10, 10);
 
             foreach (Wall l in wallList)
             {
@@ -288,12 +298,20 @@ namespace DooDooDungeon
                 {
                     doodooRightCollision = true;
                 }
+                else
+                {
+                    doodooRightCollision = false;
+                }
             }
             foreach (Rectangle r in wallRecList)
             {
                 if(leftDooDooRec.IntersectsWith(r))
                 {
                     doodooLeftCollision = true;
+                }
+                else
+                {
+                    doodooLeftCollision = false;
                 }
             }
             foreach (Rectangle r in wallRecList)
@@ -302,12 +320,20 @@ namespace DooDooDungeon
                 {
                     doodooBottomCollision = true;
                 }
+                else
+                {
+                    doodooBottomCollision = false;
+                }
             }
             foreach (Rectangle r in wallRecList)
             {
                 if (topDooDooRec.IntersectsWith(r))
                 {
                     doodooTopCollision = true;
+                }
+                else
+                {
+                    doodooTopCollision = false;
                 }
             }
         }

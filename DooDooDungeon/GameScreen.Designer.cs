@@ -45,7 +45,7 @@
             this.turnLabel.BackColor = System.Drawing.Color.Transparent;
             this.turnLabel.Font = new System.Drawing.Font("Impact", 20F);
             this.turnLabel.ForeColor = System.Drawing.Color.Red;
-            this.turnLabel.Location = new System.Drawing.Point(348, 453);
+            this.turnLabel.Location = new System.Drawing.Point(191, 452);
             this.turnLabel.Name = "turnLabel";
             this.turnLabel.Size = new System.Drawing.Size(131, 34);
             this.turnLabel.TabIndex = 0;
