@@ -51,7 +51,7 @@ namespace DooDooDungeon
         int grateWidth;
         int grateHeight;
 
-        int levelNumber = 1;
+        int levelNumber = 3;
 
         List<Wall> wallList = new List<Wall>();
         List<Rectangle> wallRecList = new List<Rectangle>();
@@ -75,10 +75,9 @@ namespace DooDooDungeon
         DooDoo doodoo;
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            HitBoxCreation();
             x = roll.x;
             y = roll.y;
-
+            HitBoxCreation();
             DooDooWallHitBox();
             RollWallHitBox();
 
@@ -279,29 +278,39 @@ namespace DooDooDungeon
 
         public void LevelReading()
         {
-            XmlReader reader = XmlReader.Create("Resources/Level" + Convert.ToString(levelNumber) + ".xml", null);
-
-            while (reader.Read())
+            if (levelNumber < 4)
             {
-                if (reader.NodeType == XmlNodeType.Text)
+                XmlReader reader = XmlReader.Create("Resources/Level" + Convert.ToString(levelNumber) + ".xml", null);
+
+                reader.ReadToFollowing("x");
+                roll.x = Convert.ToInt32(reader.Read());
+                reader.ReadToFollowing("y");
+                roll.y = Convert.ToInt32(reader.Read());
+
+                while (reader.Read())
                 {
-                    int x = Convert.ToInt16(reader.ReadString());
+                    reader.ReadToFollowing("walls");                  
 
-                    reader.ReadToFollowing("y");
-                    int y = Convert.ToInt16(reader.ReadString());
+                    if (reader.NodeType == XmlNodeType.Text)
+                    {
+                        int x = Convert.ToInt16(reader.ReadString());
 
-                    reader.ReadToFollowing("Width");
-                    int Width = Convert.ToInt16(reader.ReadString());
+                        reader.ReadToFollowing("y");
+                        int y = Convert.ToInt16(reader.ReadString());
 
-                    reader.ReadToFollowing("Height");
-                    int Height = Convert.ToInt16(reader.ReadString());
+                        reader.ReadToFollowing("Width");
+                        int Width = Convert.ToInt16(reader.ReadString());
 
-                    Wall w = new Wall(x, y, Width, Height);
+                        reader.ReadToFollowing("Height");
+                        int Height = Convert.ToInt16(reader.ReadString());
 
-                    wallList.Add(w);
+                        Wall w = new Wall(x, y, Width, Height);
+
+                        wallList.Add(w);
+                    }
                 }
+                reader.Close();
             }
-            reader.Close();
 
             if (levelNumber == 1)
             {
@@ -346,38 +355,6 @@ namespace DooDooDungeon
         
         public void DooDooWallHitBox()
         {
-            Rectangle grateRec = new Rectangle(grateX, grateY, grateWidth, grateHeight);
-
-            Rectangle rollRec = new Rectangle(roll.x, roll.y, roll.size, roll.size);          
-
-            if(rollRec.IntersectsWith(grateRec))
-            {
-                wallList.Clear();
-                levelNumber++;
-
-                if(levelNumber == 4)
-                {
-                    //Change to Win Screen
-                    Form f = this.FindForm();
-                    GameOverScreen gos = new GameOverScreen();
-                }
-                else 
-                {
-                 LevelReading();
-                }
-                
-            }
-
-            foreach (Wall w in wallList)
-            {
-               Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
-                if (rollRec.IntersectsWith(wallRec))
-                {
-                    moveCounter = 0;
-                    roll.x = x;
-                    roll.y = y;
-                }
-            }
             doodooRightCollision = doodooLeftCollision = doodooBottomCollision = doodooTopCollision = false;
 
              rightDooDooRec = new Rectangle(doodoo.x + 53, doodoo.y + 18, 10, 10);
@@ -438,7 +415,45 @@ namespace DooDooDungeon
                     rollBottomCollision = true;
                 }
             }
+        }
+        public void HitBoxCreation()
+        {
+            Rectangle grateRec = new Rectangle(grateX, grateY, grateWidth, grateHeight);
 
+            Rectangle rollRec = new Rectangle(roll.x, roll.y, roll.size, roll.size);
+
+            if (rollRec.IntersectsWith(grateRec))
+            {
+                wallList.Clear();
+                levelNumber++;
+
+                if (levelNumber == 4)
+                {
+                    //Change to Win Screen
+                    Form f = this.FindForm();
+                    WinScreen ws = new WinScreen();
+
+                    f.Controls.Remove(this);
+                    f.Controls.Add(ws);
+
+                    ws.Focus();
+                }
+                else
+                {
+                    LevelReading();
+                }
+            }
+
+            foreach (Wall w in wallList)
+            {
+                Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
+                if (rollRec.IntersectsWith(wallRec))
+                {
+                    moveCounter = 0;
+                    roll.x = x;
+                    roll.y = y;
+                }
+            }
         }
     }
 }

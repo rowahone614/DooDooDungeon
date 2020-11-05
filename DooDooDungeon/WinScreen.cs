@@ -45,6 +45,8 @@ namespace DooDooDungeon
 
             f.Controls.Remove(this);
             f.Controls.Add(ms);
+
+            ms.Focus();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -59,6 +61,8 @@ namespace DooDooDungeon
 
             f.Controls.Remove(this);
             f.Controls.Add(gs);
+
+            gs.Focus();
         }
     }
 }
