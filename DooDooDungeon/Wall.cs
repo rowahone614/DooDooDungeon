@@ -8,7 +8,7 @@ namespace DooDooDungeon
 {
     
 
-    class Wall
+    public class Wall
     {
         public int x, y, Width, Height;
 

@@ -57,7 +57,7 @@
             this.gameOverLabel.Name = "gameOverLabel";
             this.gameOverLabel.Size = new System.Drawing.Size(600, 113);
             this.gameOverLabel.TabIndex = 3;
-            this.gameOverLabel.Text = "You were caught by the Waste Warrior";
+            this.gameOverLabel.Text = "Mr. Roll was caught by the Waste Warrior";
             this.gameOverLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // menuButton
