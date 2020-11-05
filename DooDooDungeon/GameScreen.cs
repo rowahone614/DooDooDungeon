@@ -25,6 +25,10 @@ namespace DooDooDungeon
         Boolean doodooBottomCollision = false;
         Boolean doodooRightCollision = false;
         Boolean doodooLeftCollision = false;
+        Boolean rollTopCollision = false;
+        Boolean rollBottomCollision = false;
+        Boolean rollRightCollision = false;
+        Boolean rollLeftCollision = false;
 
         int rollStartX = 20;
         int rollStartY = 20;
@@ -51,6 +55,15 @@ namespace DooDooDungeon
         SolidBrush wallBrush = new SolidBrush(Color.Black);
         SolidBrush redBrush = new SolidBrush(Color.Red);
 
+        Rectangle rightDooDooRec;
+        Rectangle leftDooDooRec;
+        Rectangle bottomDooDooRec;
+        Rectangle topDooDooRec;
+        Rectangle rightRollRec;
+        Rectangle leftRollRec;
+        Rectangle bottomRollRec;
+        Rectangle topRollRec;
+
         int tickCounter = 0;
 
         Roll roll;
@@ -62,31 +75,32 @@ namespace DooDooDungeon
             y = roll.y;
 
             DooDooWallHitBox();
+            RollWallHitBox();
 
             if (turnCounter && moveCounter == 0)
             {
-                if (wKeyDown && roll.y - 62 >= 0)
+                if (wKeyDown && roll.y - 62 >= 0 && rollTopCollision == false)
                 {
                     roll.direction = "Up";
                     roll.Move();
                     moveCounter++;
                     turnCounter = false;
                 }
-                else if (aKeyDown && roll.x - 75 >= 0)
+                else if (aKeyDown && roll.x - 75 >= 0 && rollLeftCollision == false)
                 {
                     roll.direction = "Left";
                     roll.Move();
                     moveCounter++;
                     turnCounter = false;
                 }
-                else if (sKeyDown && roll.y + 102 <= 500)
+                else if (sKeyDown && roll.y + 102 <= 500 && rollBottomCollision == false)
                 {
                     roll.direction = "Down";
                     roll.Move();
                     moveCounter++;
                     turnCounter = false;
                 }
-                else if (dKeyDown && roll.x + 122 <= 600)
+                else if (dKeyDown && roll.x + 122 <= 600 && rollRightCollision == false)
                 {
                     roll.direction = "Right";
                     roll.Move();
@@ -236,15 +250,15 @@ namespace DooDooDungeon
             e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
             e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
 
-            Rectangle rightDooDooRec = new Rectangle(doodoo.x + 53, doodoo.y + 18, 10, 10);
-            Rectangle leftDooDooRec = new Rectangle(doodoo.x - 24, doodoo.y + 18, 10, 10);
-            Rectangle bottomDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y - 14, 10, 10);
-            Rectangle topDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y + 48, 10, 10);
-
             e.Graphics.FillRectangle(redBrush, rightDooDooRec);
             e.Graphics.FillRectangle(redBrush, leftDooDooRec);
             e.Graphics.FillRectangle(redBrush, bottomDooDooRec);
             e.Graphics.FillRectangle(redBrush, topDooDooRec);
+
+            e.Graphics.FillRectangle(redBrush, rightRollRec);
+            e.Graphics.FillRectangle(redBrush, leftRollRec);
+            e.Graphics.FillRectangle(redBrush, bottomRollRec);
+            e.Graphics.FillRectangle(redBrush, topRollRec);
 
             //draw walls to screen
             foreach (Wall w in wallList)
@@ -282,82 +296,67 @@ namespace DooDooDungeon
     
         public void DooDooWallHitBox()
         {
-            Rectangle rightDooDooRec = new Rectangle(doodoo.x + 53, doodoo.y + 18, 10, 10);
-            Rectangle leftDooDooRec = new Rectangle(doodoo.x - 24, doodoo.y + 18, 10, 10);
-            Rectangle bottomDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y - 14, 10, 10);
-            Rectangle topDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y + 48, 10, 10);
+            doodooRightCollision = doodooLeftCollision = doodooBottomCollision = doodooTopCollision = false;
 
-            foreach (Wall l in wallList)
+             rightDooDooRec = new Rectangle(doodoo.x + 53, doodoo.y + 18, 10, 10);
+             leftDooDooRec = new Rectangle(doodoo.x - 24, doodoo.y + 18, 10, 10);
+             bottomDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y + 48, 10, 10);
+             topDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y - 14, 10, 10);
+
+            foreach (Wall w in wallList)
             {
-                Rectangle wallRec = new Rectangle(l.x, l.y, l.Width, l.Height);
-                wallRecList.Add(wallRec);
-            }
-            foreach (Rectangle r in wallRecList)
-            {
-                if(rightDooDooRec.IntersectsWith(r))
+                Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
+                
+                if (rightDooDooRec.IntersectsWith(wallRec) && doodooRightCollision == false)
                 {
                     doodooRightCollision = true;
                 }
-                else
-                {
-                    doodooRightCollision = false;
-                }
-            }
-            foreach (Rectangle r in wallRecList)
-            {
-                if(leftDooDooRec.IntersectsWith(r))
+                if (leftDooDooRec.IntersectsWith(wallRec) && doodooLeftCollision == false)
                 {
                     doodooLeftCollision = true;
                 }
-                else
-                {
-                    doodooLeftCollision = false;
-                }
-            }
-            foreach (Rectangle r in wallRecList)
-            {
-                if (bottomDooDooRec.IntersectsWith(r))
-                {
-                    doodooBottomCollision = true;
-                }
-                else
-                {
-                    doodooBottomCollision = false;
-                }
-            }
-            foreach (Rectangle r in wallRecList)
-            {
-                if (topDooDooRec.IntersectsWith(r))
+                if (topDooDooRec.IntersectsWith(wallRec) && doodooTopCollision == false)
                 {
                     doodooTopCollision = true;
                 }
-                else
+                if (bottomDooDooRec.IntersectsWith(wallRec) && doodooBottomCollision == false)
                 {
-                    doodooTopCollision = false;
+                    doodooBottomCollision = true;
                 }
             }
         }
 
-        //public void rollWallHitBox()
-        //{
+        public void RollWallHitBox()
+        {
+            rollTopCollision = rollBottomCollision = rollLeftCollision = rollRightCollision = false;
 
-        //    Rectangle rightrollRec = new Rectangle(roll.x + 60, roll.y - 20, 10, 10);
-        //    Rectangle leftrollRec = new Rectangle(roll.x - 60, roll.y - 20, 10, 10);
-        //    Rectangle bottomrollRec = new Rectangle(roll.x + 20, roll.y - 60, 10, 10);
-        //    Rectangle toprollRec = new Rectangle(roll.x + 20, roll.y + 20, 10, 10);
+            rightRollRec = new Rectangle(roll.x + 50, roll.y + 8, 10, 10);
+            leftRollRec = new Rectangle(roll.x - 24, roll.y + 8, 10, 10);
+            bottomRollRec = new Rectangle(roll.x + 11, roll.y + 40, 10, 10);
+            topRollRec = new Rectangle(roll.x + 11, roll.y - 24, 10, 10);
 
-        //    foreach (Wall l in wallList)
-        //    {
-        //        Rectangle wallRec = new Rectangle(l.x, l.y, l.Width, l.Height);
-        //        wallRecList.Add(wallRec);
-        //    }
-        //    foreach (Rectangle r in wallRecList)
-        //    {
-        //        if (rightrrollRec.IntersectsWith(r))
-        //        {
-        //            rollRightCollision = true;
-        //        }
-        //    }
-        //}
+            foreach (Wall w in wallList)
+            {
+                Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
+
+                if (rightRollRec.IntersectsWith(wallRec) && rollRightCollision == false)
+                {
+                    rollRightCollision = true;
+                }
+                if (leftRollRec.IntersectsWith(wallRec) && rollLeftCollision == false)
+                {
+                    rollLeftCollision = true;
+                }
+                if (topRollRec.IntersectsWith(wallRec) && rollTopCollision == false)
+                {
+                    rollTopCollision = true;
+                }
+                if (bottomRollRec.IntersectsWith(wallRec) && rollBottomCollision == false)
+                {
+                    rollBottomCollision = true;
+                }
+            }
+
+        }
     }
 }
