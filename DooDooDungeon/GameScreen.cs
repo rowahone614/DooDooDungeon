@@ -38,6 +38,11 @@ namespace DooDooDungeon
         int Width = 0;
         int Height = 0;
 
+        int grateX;
+        int grateY;
+        int grateWidth;
+        int grateHeight;
+
         int levelNumber = 1;
 
         List<Wall> wallList = new List<Wall>();
@@ -49,62 +54,9 @@ namespace DooDooDungeon
         DooDoo doodoo;
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            if (turnCounter && moveCounter == 0)
-            {
-                if (wKeyDown && roll.y - 62 >= 0)
-                {
-                    roll.direction = "Up";
-                    roll.Move();
-                    moveCounter++;
-                    turnCounter = false;
-                }
-                else if (aKeyDown && roll.x - 75 >= 0)
-                {
-                    roll.direction = "Left";
-                    roll.Move();
-                    moveCounter++;
-                    turnCounter = false;
-                }
-                else if (sKeyDown && roll.y + 102 <= this.Height)
-                {
-                    roll.direction = "Down";
-                    roll.Move();
-                    moveCounter++;
-                    turnCounter = false;
-                }
-                else if (dKeyDown && roll.x + 122 <= this.Width)
-                {
-                    roll.direction = "Right";
-                    roll.Move();
-                    moveCounter++;
-                    turnCounter = false;
-                }
-            }
-            if (turnCounter == false && moveCounter > 0)
-            {
-                if (upKeyDown && doodoo.y - 62 >= 0)
-                {
-                    doodoo.direction = "Up";
-                    SwitchMove();
-                }
-                else if (leftKeyDown && doodoo.x - 75 >= 0)
-                {
-                    doodoo.direction = "Left";
-                    SwitchMove();
-                }
-                else if (downKeyDown && doodoo.y + 122 <= this.Height)
-                {
-                    doodoo.direction = "Down";
-                    SwitchMove();
-                    
-                }
-                else if (rightKeyDown && doodoo.x + 122 <= this.Width)
-                {
-                    doodoo.direction = "Right";
-                    SwitchMove();
-                }
-            }
+            TurnChecking();
             CollisionCheck();
+            HitBoxCreation();
             Refresh();
         }
 
@@ -134,14 +86,17 @@ namespace DooDooDungeon
                 turnCounter = true;
             }
         }
+
         public void OnStart()
         {
-            LevelReading();
-
             roll = new Roll(rollStartX, rollStartY, rollSize, "None");
             doodoo = new DooDoo(doodooStartX, doodooStartY, doodooSize, "None");
+
+            HitBoxCreation();
+            LevelReading();            
         }
         #region Key Declaration
+
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -209,6 +164,7 @@ namespace DooDooDungeon
         {
              e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
              e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
+             e.Graphics.DrawImage(Properties.Resources.escapeGrate, grateX, grateY, grateWidth, grateHeight);
 
             //draw walls to screen
             foreach (Wall w in wallList)
@@ -242,16 +198,147 @@ namespace DooDooDungeon
                 }
             }
             reader.Close();
+
+            if (levelNumber == 1)
+            {
+                grateX = 537;
+                grateY = 8;
+                grateWidth = 52;
+                grateHeight = 46;
+
+                roll.x = 162;
+                roll.y = 199;
+
+                doodoo.x = 8;
+                doodoo.y = 451;
+            }
+            else if (levelNumber == 2)
+            {
+                grateX = 237;
+                grateY = 450;
+                grateWidth = 52;
+                grateHeight = 46;
+
+                roll.x = 11;
+                roll.y = 455;
+
+                doodoo.x = 87;
+                doodoo.y = 134;
+            }
+            else if (levelNumber == 3)
+            {
+                grateX = 10;
+                grateY = 447;
+                grateWidth = 52;
+                grateHeight = 46;
+
+                roll.x = 245;
+                roll.y = 450;
+
+                doodoo.x = 12;
+                doodoo.y = 10;
+            }
+        }
+
+        public void TurnChecking()
+        {
+            if (turnCounter && moveCounter == 0)
+            {
+                if (wKeyDown && roll.y - 62 >= 0)
+                {
+                    roll.direction = "Up";
+                    roll.Move();
+                    moveCounter++;
+                    turnCounter = false;
+                }
+                else if (aKeyDown && roll.x - 75 >= 0)
+                {
+                    roll.direction = "Left";
+                    roll.Move();
+                    moveCounter++;
+                    turnCounter = false;
+                }
+                else if (sKeyDown && roll.y + 102 <= 500)
+                {
+                    roll.direction = "Down";
+                    roll.Move();
+                    moveCounter++;
+                    turnCounter = false;
+                }
+                else if (dKeyDown && roll.x + 122 <= 600)
+                {
+                    roll.direction = "Right";
+                    roll.Move();
+                    moveCounter++;
+                    turnCounter = false;
+                }
+
+                x = roll.x;
+                y = roll.y;
+
+            }
+            if (turnCounter == false && moveCounter > 0)
+            {
+                if (upKeyDown && doodoo.y - 62 >= 0)
+                {
+                    doodoo.direction = "Up";
+                    SwitchMove();
+                }
+                else if (leftKeyDown && doodoo.x - 75 >= 0)
+                {
+                    doodoo.direction = "Left";
+                    SwitchMove();
+                }
+                else if (downKeyDown && doodoo.y + 122 <= 500)
+                {
+                    doodoo.direction = "Down";
+                    SwitchMove();
+
+                }
+                else if (rightKeyDown && doodoo.x + 122 <= 600)
+                {
+                    doodoo.direction = "Right";
+                    SwitchMove();
+                }
+            }
         }
 
         public void HitBoxCreation()
         {
-            foreach (Wall w in wallList)
+
+
+            Rectangle grateRec = new Rectangle(grateX, grateY, grateWidth, grateHeight);
+
+            Rectangle rollRec = new Rectangle(roll.x, roll.y, roll.size, roll.size);          
+
+            if(rollRec.IntersectsWith(grateRec))
             {
-                Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
+                wallList.Clear();
+                levelNumber++;
+
+                if(levelNumber == 4)
+                {
+                    //Change to Win Screen
+                    Form f = this.FindForm();
+                    GameOverScreen gos = new GameOverScreen();
+                }
+                else 
+                {
+                 LevelReading();
+                }
+                
             }
 
-            Rectangle rollRec = new Rectangle(roll.x, roll.y, roll.size, roll.size);
+            foreach (Wall w in wallList)
+            {
+               Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
+                if (rollRec.IntersectsWith(wallRec))
+                {
+                    moveCounter = 0;
+                    roll.x = x;
+                    roll.y = y;
+                }
+            }
         }
     }
 }
