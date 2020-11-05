@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <level>
   <roll>
-    <x>537</x>
-    <y>8</y>
+    <x>169</x>
+    <y>205</y>
     <Size>40</Size>
   </roll>
   <doodoo>
-    <x>8</x>
-    <y>451</y>
+    <x>18</x>
+    <y>446</y>
     <Size>40</Size>
   </doodoo>
   <grate>
-    <x>69</x>
-    <y>306</y>
-    <Width>85</Width>
-    <Height>10</Height>
+    <x>533</x>
+    <y>1</y>
+    <Width>60</Width>
+    <Height>60</Height>
   </grate>
   <walls>
     <wall>
       <x>523</x>
       <y>58</y>
-      <Width>77</Width>
-      <Height>10</Height>
+      <Width>10</Width>
+      <Height>77</Height>
     </wall>
     <wall>
       <x>523</x>

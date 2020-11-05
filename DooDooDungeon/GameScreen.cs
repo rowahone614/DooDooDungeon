@@ -43,15 +43,13 @@ namespace DooDooDungeon
 
         int x;
         int y;
-        int Width = 0;
-        int Height = 0;
 
         int grateX;
         int grateY;
         int grateWidth;
         int grateHeight;
 
-        int levelNumber = 3;
+        int levelNumber = 1;
 
         List<Wall> wallList = new List<Wall>();
         List<Rectangle> wallRecList = new List<Rectangle>();
@@ -128,7 +126,6 @@ namespace DooDooDungeon
                 {
                     doodoo.direction = "Down";
                     SwitchMove();
-
                 }
                 else if (rightKeyDown && doodoo.x + 122 <= 600 && doodooRightCollision == false)
                 {
@@ -283,14 +280,28 @@ namespace DooDooDungeon
                 XmlReader reader = XmlReader.Create("Resources/Level" + Convert.ToString(levelNumber) + ".xml", null);
 
                 reader.ReadToFollowing("x");
-                roll.x = Convert.ToInt32(reader.Read());
+                roll.x = Convert.ToInt32(reader.ReadString());
                 reader.ReadToFollowing("y");
-                roll.y = Convert.ToInt32(reader.Read());
+                roll.y = Convert.ToInt32(reader.ReadString());
+
+                reader.ReadToFollowing("x");
+                doodoo.x = Convert.ToInt32(reader.ReadString());
+                reader.ReadToFollowing("y");
+                doodoo.y = Convert.ToInt32(reader.ReadString());
+
+                reader.ReadToFollowing("x");
+                grateX = Convert.ToInt32(reader.ReadString());
+                reader.ReadToFollowing("y");
+                grateY = Convert.ToInt32(reader.ReadString());
+                reader.ReadToFollowing("Width");
+                grateWidth = Convert.ToInt32(reader.ReadString());
+                reader.ReadToFollowing("Height");
+                grateHeight = Convert.ToInt32(reader.ReadString());
+
+                reader.ReadToFollowing("walls");
 
                 while (reader.Read())
                 {
-                    reader.ReadToFollowing("walls");                  
-
                     if (reader.NodeType == XmlNodeType.Text)
                     {
                         int x = Convert.ToInt16(reader.ReadString());
@@ -310,46 +321,6 @@ namespace DooDooDungeon
                     }
                 }
                 reader.Close();
-            }
-
-            if (levelNumber == 1)
-            {
-                grateX = 537;
-                grateY = 8;
-                grateWidth = 52;
-                grateHeight = 46;
-
-                roll.x = 162;
-                roll.y = 199;
-
-                doodoo.x = 8;
-                doodoo.y = 451;
-            }
-            else if (levelNumber == 2)
-            {
-                grateX = 237;
-                grateY = 450;
-                grateWidth = 52;
-                grateHeight = 46;
-
-                roll.x = 11;
-                roll.y = 455;
-
-                doodoo.x = 87;
-                doodoo.y = 134;
-            }
-            else if (levelNumber == 3)
-            {
-                grateX = 10;
-                grateY = 447;
-                grateWidth = 52;
-                grateHeight = 46;
-
-                roll.x = 245;
-                roll.y = 450;
-
-                doodoo.x = 12;
-                doodoo.y = 10;
             }
         }
         
