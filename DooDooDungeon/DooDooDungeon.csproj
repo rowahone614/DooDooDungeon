@@ -155,5 +155,11 @@
   <ItemGroup>
     <None Include="Resources\Waste Warroir.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New Piskel %284%29 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\escapeGrate.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

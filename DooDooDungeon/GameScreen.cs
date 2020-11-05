@@ -46,6 +46,11 @@ namespace DooDooDungeon
         int Width = 0;
         int Height = 0;
 
+        int grateX;
+        int grateY;
+        int grateWidth;
+        int grateHeight;
+
         int levelNumber = 1;
 
         List<Wall> wallList = new List<Wall>();
@@ -70,7 +75,7 @@ namespace DooDooDungeon
         DooDoo doodoo;
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-
+            HitBoxCreation();
             x = roll.x;
             y = roll.y;
 
@@ -174,14 +179,17 @@ namespace DooDooDungeon
                 turnCounter = true;
             }
         }
+
         public void OnStart()
         {
-            LevelReading();
-
             roll = new Roll(rollStartX, rollStartY, rollSize, "None");
             doodoo = new DooDoo(doodooStartX, doodooStartY, doodooSize, "None");
+
+            HitBoxCreation();
+            LevelReading();            
         }
         #region Key Declaration
+
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -247,6 +255,8 @@ namespace DooDooDungeon
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.DrawImage(Properties.Resources.escapeGrate, grateX, grateY, grateWidth, grateHeight);
+             
             e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
             e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
 
@@ -292,10 +302,82 @@ namespace DooDooDungeon
                 }
             }
             reader.Close();
+
+            if (levelNumber == 1)
+            {
+                grateX = 537;
+                grateY = 8;
+                grateWidth = 52;
+                grateHeight = 46;
+
+                roll.x = 162;
+                roll.y = 199;
+
+                doodoo.x = 8;
+                doodoo.y = 451;
+            }
+            else if (levelNumber == 2)
+            {
+                grateX = 237;
+                grateY = 450;
+                grateWidth = 52;
+                grateHeight = 46;
+
+                roll.x = 11;
+                roll.y = 455;
+
+                doodoo.x = 87;
+                doodoo.y = 134;
+            }
+            else if (levelNumber == 3)
+            {
+                grateX = 10;
+                grateY = 447;
+                grateWidth = 52;
+                grateHeight = 46;
+
+                roll.x = 245;
+                roll.y = 450;
+
+                doodoo.x = 12;
+                doodoo.y = 10;
+            }
         }
-    
+        
         public void DooDooWallHitBox()
         {
+            Rectangle grateRec = new Rectangle(grateX, grateY, grateWidth, grateHeight);
+
+            Rectangle rollRec = new Rectangle(roll.x, roll.y, roll.size, roll.size);          
+
+            if(rollRec.IntersectsWith(grateRec))
+            {
+                wallList.Clear();
+                levelNumber++;
+
+                if(levelNumber == 4)
+                {
+                    //Change to Win Screen
+                    Form f = this.FindForm();
+                    GameOverScreen gos = new GameOverScreen();
+                }
+                else 
+                {
+                 LevelReading();
+                }
+                
+            }
+
+            foreach (Wall w in wallList)
+            {
+               Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
+                if (rollRec.IntersectsWith(wallRec))
+                {
+                    moveCounter = 0;
+                    roll.x = x;
+                    roll.y = y;
+                }
+            }
             doodooRightCollision = doodooLeftCollision = doodooBottomCollision = doodooTopCollision = false;
 
              rightDooDooRec = new Rectangle(doodoo.x + 53, doodoo.y + 18, 10, 10);
