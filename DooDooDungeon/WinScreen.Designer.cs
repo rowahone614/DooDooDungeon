@@ -56,7 +56,7 @@
             this.winLabel.Name = "winLabel";
             this.winLabel.Size = new System.Drawing.Size(600, 113);
             this.winLabel.TabIndex = 4;
-            this.winLabel.Text = "Mr. Roll escaped the Waste Warrior";
+            this.winLabel.Text = "Mr. Roll escaped  from the Waste Warrior";
             this.winLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
@@ -118,6 +118,7 @@
             this.Controls.Add(this.titleLabel);
             this.Name = "WinScreen";
             this.Size = new System.Drawing.Size(600, 500);
+            this.Load += new System.EventHandler(this.WinScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

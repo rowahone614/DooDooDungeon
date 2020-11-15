@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.turnLabel = new System.Windows.Forms.Label();
+            this.levelLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -41,15 +42,27 @@
             // 
             // turnLabel
             // 
-            this.turnLabel.AutoSize = true;
             this.turnLabel.BackColor = System.Drawing.Color.Transparent;
             this.turnLabel.Font = new System.Drawing.Font("Impact", 20F);
-            this.turnLabel.ForeColor = System.Drawing.Color.Red;
-            this.turnLabel.Location = new System.Drawing.Point(191, 452);
+            this.turnLabel.ForeColor = System.Drawing.Color.Black;
+            this.turnLabel.Location = new System.Drawing.Point(0, 15);
             this.turnLabel.Name = "turnLabel";
-            this.turnLabel.Size = new System.Drawing.Size(131, 34);
+            this.turnLabel.Size = new System.Drawing.Size(600, 34);
             this.turnLabel.TabIndex = 0;
             this.turnLabel.Text = "Roll\'s Turn";
+            this.turnLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // levelLabel
+            // 
+            this.levelLabel.BackColor = System.Drawing.Color.DimGray;
+            this.levelLabel.Font = new System.Drawing.Font("Impact", 20F);
+            this.levelLabel.ForeColor = System.Drawing.Color.Maroon;
+            this.levelLabel.Location = new System.Drawing.Point(225, 116);
+            this.levelLabel.Name = "levelLabel";
+            this.levelLabel.Size = new System.Drawing.Size(150, 34);
+            this.levelLabel.TabIndex = 1;
+            this.levelLabel.Text = "Level 1";
+            this.levelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // GameScreen
             // 
@@ -57,6 +70,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::DooDooDungeon.Properties.Resources.Dungeon_Board;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.levelLabel);
             this.Controls.Add(this.turnLabel);
             this.DoubleBuffered = true;
             this.Name = "GameScreen";
@@ -65,12 +79,12 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Label turnLabel;
+        private System.Windows.Forms.Label levelLabel;
     }
 }

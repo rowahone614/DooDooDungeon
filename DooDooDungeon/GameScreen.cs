@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Threading;
+using System.Media;
 
 namespace DooDooDungeon
 {
@@ -21,6 +23,7 @@ namespace DooDooDungeon
 
         Boolean leftKeyDown, rightKeyDown, downKeyDown, upKeyDown, wKeyDown, aKeyDown, sKeyDown, dKeyDown;
         Boolean turnCounter = true;
+        Boolean levelLabelVisible = true;
         Boolean doodooTopCollision = false;
         Boolean doodooBottomCollision = false;
         Boolean doodooRightCollision = false;
@@ -41,9 +44,6 @@ namespace DooDooDungeon
 
         int moveCounter = 0;
 
-        int x;
-        int y;
-
         int grateX;
         int grateY;
         int grateWidth;
@@ -52,7 +52,6 @@ namespace DooDooDungeon
         int levelNumber = 1;
 
         List<Wall> wallList = new List<Wall>();
-        List<Rectangle> wallRecList = new List<Rectangle>();
 
         //used to draw walls on screen
         SolidBrush wallBrush = new SolidBrush(Color.Black);
@@ -71,74 +70,84 @@ namespace DooDooDungeon
 
         Roll roll;
         DooDoo doodoo;
+
+        SoundPlayer moveSound = new SoundPlayer(Properties.Resources.MoveSound);
+        SoundPlayer fartSound = new SoundPlayer(Properties.Resources.FartSound);
+        SoundPlayer errorSound = new SoundPlayer(Properties.Resources.ErrorSound);
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            x = roll.x;
-            y = roll.y;
-            HitBoxCreation();
             DooDooWallHitBox();
             RollWallHitBox();
+            HitBoxCreation();
 
             if (turnCounter && moveCounter == 0)
             {
                 if (wKeyDown && roll.y - 62 >= 0 && rollTopCollision == false)
                 {
                     roll.direction = "Up";
-                    roll.Move();
-                    moveCounter++;
-                    turnCounter = false;
+                    RollMove();
                 }
                 else if (aKeyDown && roll.x - 75 >= 0 && rollLeftCollision == false)
                 {
                     roll.direction = "Left";
-                    roll.Move();
-                    moveCounter++;
-                    turnCounter = false;
+                    RollMove();
                 }
                 else if (sKeyDown && roll.y + 102 <= 500 && rollBottomCollision == false)
                 {
                     roll.direction = "Down";
-                    roll.Move();
-                    moveCounter++;
-                    turnCounter = false;
+                    RollMove();
                 }
                 else if (dKeyDown && roll.x + 122 <= 600 && rollRightCollision == false)
                 {
                     roll.direction = "Right";
-                    roll.Move();
-                    moveCounter++;
-                    turnCounter = false;
+                    RollMove();
                 }
+                CollisionNotice(rollTopCollision, wKeyDown);
+                CollisionNotice(rollLeftCollision, aKeyDown);
+                CollisionNotice(rollBottomCollision, sKeyDown);
+                CollisionNotice(rollRightCollision, dKeyDown);
             }
             if (turnCounter == false && moveCounter > 0 && tickCounter > 10)
             {
                 if (upKeyDown && doodoo.y - 62 >= 0 && doodooTopCollision == false)
                 {
                     doodoo.direction = "Up";
-                    SwitchMove();
+                    DooDooMove();
                 }
                 else if (leftKeyDown && doodoo.x - 75 >= 0 && doodooLeftCollision == false)
                 {
                     doodoo.direction = "Left";
-                    SwitchMove();
+                    DooDooMove();
                 }
                 else if (downKeyDown && doodoo.y + 102 <= 500 && doodooBottomCollision == false)
                 {
                     doodoo.direction = "Down";
-                    SwitchMove();
+                    DooDooMove();
                 }
                 else if (rightKeyDown && doodoo.x + 122 <= 600 && doodooRightCollision == false)
                 {
                     doodoo.direction = "Right";
-                    SwitchMove();
+                    DooDooMove();
                 }
+                CollisionNotice(doodooTopCollision, upKeyDown);
+                CollisionNotice(doodooLeftCollision, leftKeyDown);
+                CollisionNotice(doodooBottomCollision, downKeyDown);
+                CollisionNotice(doodooRightCollision, rightKeyDown);
                 tickCounter = 0;
             }
 
+            if (levelLabelVisible)
+            {
+                levelLabel.Visible = true;
+            }
+            else
+            {
+                levelLabel.Visible = false;
+            }
 
             if (turnCounter)
             {
-                turnLabel.Text = "Roll's Turn";
+                turnLabel.Text = "Roll's Turn \n";
             }
             else if (turnCounter == false)
             {
@@ -165,6 +174,20 @@ namespace DooDooDungeon
             }
         }
 
+        public void RollMove()
+        {
+            moveSound.Play();
+            roll.Move();
+            moveCounter++;
+            turnCounter = false;
+            levelLabelVisible = false;
+        }
+        public void DooDooMove()
+        {
+            fartSound.Play();
+            levelLabelVisible = false;
+            SwitchMove();
+        }
         public void SwitchMove()
         {
             doodoo.Move();
@@ -175,15 +198,27 @@ namespace DooDooDungeon
                 turnCounter = true;
             }
         }
+        public void CollisionNotice(bool collision, bool keydown)
+        {
+            if (collision && keydown)
+            {
+                errorSound.Play();
+            }
+        }
 
         public void OnStart()
         {
+            levelLabel.Text = "Level 1";
+
             roll = new Roll(rollStartX, rollStartY, rollSize, "None");
             doodoo = new DooDoo(doodooStartX, doodooStartY, doodooSize, "None");
+
+            turnCounter = true;
 
             HitBoxCreation();
             LevelReading();            
         }
+
         #region Key Declaration
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
@@ -256,15 +291,15 @@ namespace DooDooDungeon
             e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
             e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
 
-            e.Graphics.FillRectangle(redBrush, rightDooDooRec);
-            e.Graphics.FillRectangle(redBrush, leftDooDooRec);
-            e.Graphics.FillRectangle(redBrush, bottomDooDooRec);
-            e.Graphics.FillRectangle(redBrush, topDooDooRec);
+            //e.Graphics.FillRectangle(redBrush, rightDooDooRec);
+            //e.Graphics.FillRectangle(redBrush, leftDooDooRec);
+            //e.Graphics.FillRectangle(redBrush, bottomDooDooRec);
+            //e.Graphics.FillRectangle(redBrush, topDooDooRec);
 
-            e.Graphics.FillRectangle(redBrush, rightRollRec);
-            e.Graphics.FillRectangle(redBrush, leftRollRec);
-            e.Graphics.FillRectangle(redBrush, bottomRollRec);
-            e.Graphics.FillRectangle(redBrush, topRollRec);
+            //e.Graphics.FillRectangle(redBrush, rightRollRec);
+            //e.Graphics.FillRectangle(redBrush, leftRollRec);
+            //e.Graphics.FillRectangle(redBrush, bottomRollRec);
+            //e.Graphics.FillRectangle(redBrush, topRollRec);
 
             //draw walls to screen
             foreach (Wall w in wallList)
@@ -355,7 +390,22 @@ namespace DooDooDungeon
                 }
             }
         }
-
+        public void LevelChange()
+        {
+            levelLabelVisible = true;
+            switch (levelNumber)
+            {
+                case 2:
+                    levelLabel.Text = "Level 2";
+                    break;
+                case 3:
+                    levelLabel.Text = "Level 3";
+                    break;
+            }
+            dKeyDown = false;
+            turnCounter = true;
+            moveCounter = 0;
+        }
         public void RollWallHitBox()
         {
             rollTopCollision = rollBottomCollision = rollLeftCollision = rollRightCollision = false;
@@ -390,7 +440,6 @@ namespace DooDooDungeon
         public void HitBoxCreation()
         {
             Rectangle grateRec = new Rectangle(grateX, grateY, grateWidth, grateHeight);
-
             Rectangle rollRec = new Rectangle(roll.x, roll.y, roll.size, roll.size);
 
             if (rollRec.IntersectsWith(grateRec))
@@ -411,18 +460,8 @@ namespace DooDooDungeon
                 }
                 else
                 {
+                    LevelChange();
                     LevelReading();
-                }
-            }
-
-            foreach (Wall w in wallList)
-            {
-                Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
-                if (rollRec.IntersectsWith(wallRec))
-                {
-                    moveCounter = 0;
-                    roll.x = x;
-                    roll.y = y;
                 }
             }
         }

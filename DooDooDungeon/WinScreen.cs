@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace DooDooDungeon
 {
@@ -63,6 +64,11 @@ namespace DooDooDungeon
             f.Controls.Add(gs);
 
             gs.Focus();
+        }
+
+        private void WinScreen_Load(object sender, EventArgs e)
+        {
+            Form1.themeSound.Play();
         }
     }
 }

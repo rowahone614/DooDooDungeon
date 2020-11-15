@@ -121,6 +121,7 @@
             this.Controls.Add(this.titleLabel);
             this.Name = "MenuScreen";
             this.Size = new System.Drawing.Size(600, 600);
+            this.Load += new System.EventHandler(this.MenuScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.rollPicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dookiePicture)).EndInit();
             this.ResumeLayout(false);

@@ -161,5 +161,17 @@
   <ItemGroup>
     <None Include="Resources\escapeGrate.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Click2-Sebastian-759472264.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Uuuuuu-Paula-1357936016.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\water-drops-daniel_simon.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Computer Error-SoundBible.com-399240903.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

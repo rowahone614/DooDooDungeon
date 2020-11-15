@@ -71,6 +71,15 @@ namespace DooDooDungeon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream ErrorSound {
+            get {
+                return ResourceManager.GetStream("ErrorSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap escapeGrate {
@@ -81,36 +90,45 @@ namespace DooDooDungeon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream FartSound {
+            get {
+                return ResourceManager.GetStream("FartSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;level&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;523&lt;/x&gt;
-        ///    &lt;y&gt;58&lt;/y&gt;
-        ///    &lt;Width&gt;77&lt;/Width&gt;
-        ///    &lt;Height&gt;10&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;523&lt;/x&gt;
-        ///    &lt;y&gt;58&lt;/y&gt;
-        ///    &lt;Width&gt;10&lt;/Width&gt;
-        ///    &lt;Height&gt;442&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;446&lt;/x&gt;
-        ///    &lt;y&gt;58&lt;/y&gt;
-        ///    &lt;Width&gt;10&lt;/Width&gt;
-        ///    &lt;Height&gt;69&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;371&lt;/x&gt;
-        ///    &lt;y&gt;117&lt;/y&gt;
-        ///    &lt;Width&gt;85&lt;/Width&gt;
-        ///    &lt;Height&gt;10&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;371&lt;/x&gt;
-        ///    &lt;y&gt;117&lt;/y&gt;
-        ///    &lt;Width&gt;10&lt;/Widt [rest of string was truncated]&quot;;.
+        ///  &lt;roll&gt;
+        ///    &lt;x&gt;169&lt;/x&gt;
+        ///    &lt;y&gt;205&lt;/y&gt;
+        ///    &lt;Size&gt;40&lt;/Size&gt;
+        ///  &lt;/roll&gt;
+        ///  &lt;doodoo&gt;
+        ///    &lt;x&gt;18&lt;/x&gt;
+        ///    &lt;y&gt;446&lt;/y&gt;
+        ///    &lt;Size&gt;40&lt;/Size&gt;
+        ///  &lt;/doodoo&gt;
+        ///  &lt;grate&gt;
+        ///    &lt;x&gt;533&lt;/x&gt;
+        ///    &lt;y&gt;1&lt;/y&gt;
+        ///    &lt;Width&gt;60&lt;/Width&gt;
+        ///    &lt;Height&gt;60&lt;/Height&gt;
+        ///  &lt;/grate&gt;
+        ///  &lt;walls&gt;
+        ///    &lt;wall&gt;
+        ///      &lt;x&gt;523&lt;/x&gt;
+        ///      &lt;y&gt;58&lt;/y&gt;
+        ///      &lt;Width&gt;10&lt;/Width&gt;
+        ///      &lt;Height&gt;77&lt;/Height&gt;
+        ///    &lt;/wall&gt;
+        ///    &lt;wall&gt;
+        ///      &lt;x&gt;523&lt;/x&gt;
+        ///      &lt;y&gt;58&lt;/y&gt;
+        ///      &lt;Width&gt;10&lt;/Width&gt;
+        ///      &lt;Height&gt;44 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Level1 {
             get {
@@ -121,34 +139,36 @@ namespace DooDooDungeon.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;level&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;522&lt;/x&gt;
-        ///    &lt;y&gt;0&lt;/y&gt;
-        ///    &lt;Width&gt;10&lt;/Width&gt;
-        ///    &lt;Height&gt;500&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;222&lt;/x&gt;
-        ///    &lt;y&gt;436&lt;/y&gt;
-        ///    &lt;Width&gt;154&lt;/Width&gt;
-        ///    &lt;Height&gt;10&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;222&lt;/x&gt;
-        ///    &lt;y&gt;375&lt;/y&gt;
-        ///    &lt;Width&gt;154&lt;/Width&gt;
-        ///    &lt;Height&gt;10&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;222&lt;/x&gt;
-        ///    &lt;y&gt;376&lt;/y&gt;
-        ///    &lt;Width&gt;10&lt;/Width&gt;
-        ///    &lt;Height&gt;124&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;366&lt;/x&gt;
-        ///    &lt;y&gt;310&lt;/y&gt;
-        ///    &lt;Width&gt;10&lt;/ [rest of string was truncated]&quot;;.
+        ///  &lt;roll&gt;
+        ///    &lt;x&gt;19&lt;/x&gt;
+        ///    &lt;y&gt;455&lt;/y&gt;
+        ///    &lt;Size&gt;40&lt;/Size&gt;
+        ///  &lt;/roll&gt;
+        ///  &lt;doodoo&gt;
+        ///    &lt;x&gt;92&lt;/x&gt;
+        ///    &lt;y&gt;134&lt;/y&gt;
+        ///    &lt;Size&gt;40&lt;/Size&gt;
+        ///  &lt;/doodoo&gt;
+        ///  &lt;grate&gt;
+        ///    &lt;x&gt;237&lt;/x&gt;
+        ///    &lt;y&gt;443&lt;/y&gt;
+        ///    &lt;Width&gt;60&lt;/Width&gt;
+        ///    &lt;Height&gt;60&lt;/Height&gt;
+        ///  &lt;/grate&gt;
+        ///	&lt;walls&gt;
+        ///		&lt;wall&gt;
+        ///			&lt;x&gt;522&lt;/x&gt;
+        ///			&lt;y&gt;0&lt;/y&gt;
+        ///			&lt;Width&gt;10&lt;/Width&gt;
+        ///			&lt;Height&gt;500&lt;/Height&gt;
+        ///		&lt;/wall&gt;
+        ///		&lt;wall&gt;
+        ///			&lt;x&gt;222&lt;/x&gt;
+        ///			&lt;y&gt;436&lt;/y&gt;
+        ///			&lt;Width&gt;154&lt;/Width&gt;
+        ///			&lt;Height&gt;10&lt;/Height&gt;
+        ///		&lt;/wall&gt;
+        ///		&lt;wal [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Level2 {
             get {
@@ -159,39 +179,50 @@ namespace DooDooDungeon.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;level&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;0&lt;/x&gt;
-        ///    &lt;y&gt;57&lt;/y&gt;
-        ///    &lt;Width&gt;78&lt;/Width&gt;
-        ///    &lt;Height&gt;10&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;0&lt;/x&gt;
-        ///    &lt;y&gt;181&lt;/y&gt;
-        ///    &lt;Width&gt;78&lt;/Width&gt;
-        ///    &lt;Height&gt;10&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;0&lt;/x&gt;
-        ///    &lt;y&gt;305&lt;/y&gt;
-        ///    &lt;Width&gt;78&lt;/Width&gt;
-        ///    &lt;Height&gt;10&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;0&lt;/x&gt;
-        ///    &lt;y&gt;371&lt;/y&gt;
-        ///    &lt;Width&gt;78&lt;/Width&gt;
-        ///    &lt;Height&gt;10&lt;/Height&gt;
-        ///  &lt;/wall&gt;
-        ///  &lt;wall&gt;
-        ///    &lt;x&gt;0&lt;/x&gt;
-        ///    &lt;y&gt;430&lt;/y&gt;
-        ///    &lt;Width&gt;78&lt;/Width&gt;
-        ///    &lt; [rest of string was truncated]&quot;;.
+        ///  &lt;roll&gt;
+        ///    &lt;x&gt;245&lt;/x&gt;
+        ///    &lt;y&gt;457&lt;/y&gt;
+        ///    &lt;Size&gt;40&lt;/Size&gt;
+        ///  &lt;/roll&gt;
+        ///  &lt;doodoo&gt;
+        ///    &lt;x&gt;17&lt;/x&gt;
+        ///    &lt;y&gt;10&lt;/y&gt;
+        ///    &lt;Size&gt;40&lt;/Size&gt;
+        ///  &lt;/doodoo&gt;
+        ///  &lt;grate&gt;
+        ///    &lt;x&gt;5&lt;/x&gt;
+        ///    &lt;y&gt;440&lt;/y&gt;
+        ///    &lt;Width&gt;60&lt;/Width&gt;
+        ///    &lt;Height&gt;60&lt;/Height&gt;
+        ///  &lt;/grate&gt;
+        ///	&lt;walls&gt;
+        ///		&lt;wall&gt;
+        ///			&lt;x&gt;0&lt;/x&gt;
+        ///			&lt;y&gt;57&lt;/y&gt;
+        ///			&lt;Width&gt;78&lt;/Width&gt;
+        ///			&lt;Height&gt;10&lt;/Height&gt;
+        ///		&lt;/wall&gt;
+        ///		&lt;wall&gt;
+        ///			&lt;x&gt;0&lt;/x&gt;
+        ///			&lt;y&gt;181&lt;/y&gt;
+        ///			&lt;Width&gt;78&lt;/Width&gt;
+        ///			&lt;Height&gt;10&lt;/Height&gt;
+        ///		&lt;/wall&gt;
+        ///		&lt;wall&gt;
+        ///			 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Level3 {
             get {
                 return ResourceManager.GetString("Level3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream MoveSound {
+            get {
+                return ResourceManager.GetStream("MoveSound", resourceCulture);
             }
         }
         
@@ -202,6 +233,15 @@ namespace DooDooDungeon.Properties {
             get {
                 object obj = ResourceManager.GetObject("New_Piskel__2_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream ThemeSound {
+            get {
+                return ResourceManager.GetStream("ThemeSound", resourceCulture);
             }
         }
         
