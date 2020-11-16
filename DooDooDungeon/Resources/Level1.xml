@@ -1,5 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <level>
+  <roll>
+    <x>239</x>
+    <y>328</y>
+    <Size>40</Size>
+  </roll>
+  <doodoo>
+    <x>18</x>
+    <y>446</y>
+    <Size>40</Size>
+  </doodoo>
+  <grate>
+    <x>533</x>
+    <y>1</y>
+    <Width>60</Width>
+    <Height>60</Height>
+  </grate>
   <wall>
     <x>523</x>
     <y>58</y>
@@ -7,63 +23,113 @@
     <Height>10</Height>
   </wall>
   <wall>
-    <x>523</x>
-    <y>58</y>
+    <x>146</x>
+    <y>63</y>
     <Width>10</Width>
-    <Height>442</Height>
+    <Height>63</Height>
   </wall>
   <wall>
-    <x>446</x>
-    <y>58</y>
+    <x>225</x>
+    <y>0</y>
     <Width>10</Width>
-    <Height>69</Height>
+    <Height>63</Height>
   </wall>
   <wall>
-    <x>371</x>
-    <y>117</y>
-    <Width>85</Width>
-    <Height>10</Height>
-  </wall>
-  <wall>
-    <x>371</x>
-    <y>117</y>
-    <Width>10</Width>
-    <Height>320</Height>
-  </wall>
-  <wall>
-    <x>446</x>
-    <y>185</y>
-    <Width>10</Width>
-    <Height>252</Height>
-  </wall>
-  <wall>
-    <x>145</x>
-    <y>185</y>
-    <Width>10</Width>
-    <Height>69</Height>
-  </wall>
-  <wall>
-    <x>145</x>
-    <y>180</y>
+    <x>69</x>
+    <y>433</y>
     <Width>157</Width>
     <Height>10</Height>
   </wall>
   <wall>
-    <x>145</x>
-    <y>246</y>
-    <Width>157</Width>
-    <Height>10</Height>
-  </wall>
-  <wall>
-    <x>69</x>
-    <y>244</y>
+    <x>223</x>
+    <y>315</y>
     <Width>10</Width>
-    <Height>193</Height>
+    <Height>63</Height>
+    <wall>
+      <x>292</x>
+      <y>315</y>
+      <Width>10</Width>
+      <Height>63</Height>
+    </wall>
   </wall>
   <wall>
-    <x>69</x>
-    <y>306</y>
-    <Width>85</Width>
+    <x>225</x>
+    <y>368</y>
+    <Width>77</Width>
     <Height>10</Height>
   </wall>
+  <wall>
+    <x>297</x>
+    <y>438</y>
+    <Width>10</Width>
+    <Height>63</Height>
+  </wall>
+  <walls>
+    <wall>
+      <x>523</x>
+      <y>58</y>
+      <Width>10</Width>
+      <Height>77</Height>
+    </wall>
+    <wall>
+      <x>523</x>
+      <y>58</y>
+      <Width>10</Width>
+      <Height>442</Height>
+    </wall>
+    <wall>
+      <x>446</x>
+      <y>58</y>
+      <Width>10</Width>
+      <Height>69</Height>
+    </wall>
+    <wall>
+      <x>371</x>
+      <y>117</y>
+      <Width>85</Width>
+      <Height>10</Height>
+    </wall>
+    <wall>
+      <x>371</x>
+      <y>117</y>
+      <Width>10</Width>
+      <Height>320</Height>
+    </wall>
+    <wall>
+      <x>446</x>
+      <y>185</y>
+      <Width>10</Width>
+      <Height>252</Height>
+    </wall>
+    <wall>
+      <x>145</x>
+      <y>185</y>
+      <Width>10</Width>
+      <Height>69</Height>
+    </wall>
+    <wall>
+      <x>145</x>
+      <y>180</y>
+      <Width>157</Width>
+      <Height>10</Height>
+    </wall>
+    <wall>
+      <x>145</x>
+      <y>246</y>
+      <Width>157</Width>
+      <Height>10</Height>
+    </wall>
+    <wall>
+      <x>69</x>
+      <y>244</y>
+      <Width>10</Width>
+      <Height>193</Height>
+    </wall>
+    <wall>
+      <x>69</x>
+      <y>306</y>
+      <Width>85</Width>
+      <Height>10</Height>
+    </wall>
+  </walls>
 </level>

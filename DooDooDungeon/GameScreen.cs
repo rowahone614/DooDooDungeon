@@ -75,7 +75,6 @@ namespace DooDooDungeon
         DooDoo doodoo;
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            HitBoxCreation();
             x = roll.x;
             y = roll.y;
 
@@ -139,15 +138,6 @@ namespace DooDooDungeon
                 tickCounter = 0;
             }
 
-
-            if (turnCounter)
-            {
-                turnLabel.Text = "Roll's Turn";
-            }
-            else if (turnCounter == false)
-            {
-                turnLabel.Text = "Waste Warrior's Turn";
-            }
             CollisionCheck();
             tickCounter++;
             Refresh();
@@ -184,8 +174,6 @@ namespace DooDooDungeon
         {
             roll = new Roll(rollStartX, rollStartY, rollSize, "None");
             doodoo = new DooDoo(doodooStartX, doodooStartY, doodooSize, "None");
-
-            HitBoxCreation();
             LevelReading();            
         }
         #region Key Declaration
@@ -273,7 +261,7 @@ namespace DooDooDungeon
             //draw walls to screen
             foreach (Wall w in wallList)
             {
-                e.Graphics.FillRectangle(wallBrush, w.x, w.y, w.Width, w.Height);
+                e.Graphics.DrawImage(Properties.Resources.Wall, w.x, w.y, w.Width, w.Height);
             }
         }
 
@@ -303,20 +291,7 @@ namespace DooDooDungeon
             }
             reader.Close();
 
-            if (levelNumber == 1)
-            {
-                grateX = 537;
-                grateY = 8;
-                grateWidth = 52;
-                grateHeight = 46;
-
-                roll.x = 162;
-                roll.y = 199;
-
-                doodoo.x = 8;
-                doodoo.y = 451;
-            }
-            else if (levelNumber == 2)
+             if (levelNumber == 2)
             {
                 grateX = 237;
                 grateY = 450;

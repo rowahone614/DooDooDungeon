@@ -161,5 +161,20 @@
   <ItemGroup>
     <None Include="Resources\escapeGrate.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Floor Tile Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Floor Tile Dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2020-11-16 %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New Piskel %285%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -124,6 +124,12 @@
   <data name="escapeGrate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\escapeGrate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Floor_Tile_Dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Floor Tile Dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Floor_Tile_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Floor Tile Light.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Level1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Level1.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -136,7 +142,13 @@
   <data name="New_Piskel__2_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\New Piskel (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Wall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\New Piskel (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Waste_Warroir" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Waste Warroir.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2020_11_16__2_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2020-11-16 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

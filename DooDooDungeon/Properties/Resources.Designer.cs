@@ -63,6 +63,16 @@ namespace DooDooDungeon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _2020_11_16__2_ {
+            get {
+                object obj = ResourceManager.GetObject("_2020_11_16__2_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Dungeon_Board {
             get {
                 object obj = ResourceManager.GetObject("Dungeon_Board", resourceCulture);
@@ -76,6 +86,26 @@ namespace DooDooDungeon.Properties {
         internal static System.Drawing.Bitmap escapeGrate {
             get {
                 object obj = ResourceManager.GetObject("escapeGrate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Floor_Tile_Dark {
+            get {
+                object obj = ResourceManager.GetObject("Floor_Tile_Dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Floor_Tile_Light {
+            get {
+                object obj = ResourceManager.GetObject("Floor_Tile_Light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -201,6 +231,16 @@ namespace DooDooDungeon.Properties {
         internal static System.Drawing.Bitmap New_Piskel__2_ {
             get {
                 object obj = ResourceManager.GetObject("New_Piskel__2_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Wall {
+            get {
+                object obj = ResourceManager.GetObject("Wall", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
