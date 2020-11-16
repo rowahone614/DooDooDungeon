@@ -43,23 +43,12 @@ namespace DooDooDungeon
 
         public void Orient()
         {
-            if (orientation == "Horizontal Left")
+            if (orientation == "Horizontal")
             {
                 width = 77;
                 height = 10;
             }
-            else if (orientation == "Horizontal Right")
-            {
-                width = 77;
-                height = 10;
-            }
-            else if (orientation == "Vertical Top")
-            {
-                width = 10;
-                height = 69;
-                y += 62;
-            }
-            else if (orientation == "Vertical Bottom")
+            else if (orientation == "Vertical")
             {
                 width = 10;
                 height = 69;

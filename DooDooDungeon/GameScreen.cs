@@ -33,6 +33,7 @@ namespace DooDooDungeon
         Boolean rollRightCollision = false;
         Boolean rollLeftCollision = false;
         Boolean wallPlaced = false;
+        Boolean horizontal = true;
 
         int rollStartX = 20;
         int rollStartY = 20;
@@ -44,8 +45,6 @@ namespace DooDooDungeon
         int doodooSize = 40;
 
         int moveCounter = 0;
-
-        int wallOrientation;
 
         int grateX;
         int grateY;
@@ -70,6 +69,8 @@ namespace DooDooDungeon
         Rectangle topRollRec;
 
         int tickCounter = 0;
+        int frameCounter = 0;
+        int orientControl = 0;
 
         Roll roll;
         DooDoo doodoo;
@@ -85,25 +86,29 @@ namespace DooDooDungeon
             GrateHitBox();
             if (wallPlaced == false)
             {
-                if (wKeyDown && specialWall.y > 70)
+                if (wKeyDown && (specialWall.y > 75 || (specialWall.orientation == "Vertical" && specialWall.y > 0)) && frameCounter > 10)
                 {
                     specialWall.direction = "Up";
                     specialWall.Move();
+                    frameCounter = 0;
                 }
-                else if (aKeyDown && specialWall.x > 20)
+                else if (aKeyDown && specialWall.x > 20 && frameCounter > 10)
                 {
                     specialWall.direction = "Left";
                     specialWall.Move();
+                    frameCounter = 0;
                 }
-                else if (sKeyDown && specialWall.y < 430)
+                else if (sKeyDown && specialWall.y < 430 && frameCounter > 10)
                 {
                     specialWall.direction = "Down";
                     specialWall.Move();
+                    frameCounter = 0;
                 }
-                else if (dKeyDown && specialWall.x < 510)
+                else if (dKeyDown && specialWall.x < 510 && frameCounter > 10)
                 {
                     specialWall.direction = "Right";
                     specialWall.Move();
+                    frameCounter = 0;
                 }
                 else if (spaceKeyDown)
                 {
@@ -111,28 +116,19 @@ namespace DooDooDungeon
                 }
                 else if (rKeyDown)
                 {
-                    wallOrientation++;
-                    switch (wallOrientation)
+                    if (horizontal && orientControl > 10 && specialWall.y > 0)
                     {
-                        case 0:
-                            specialWall.orientation = "Horizontal Left";
-                            specialWall.Orient();
-                            break;
-                        case 1:
-                            specialWall.orientation = "Vertical Bottom";
-                            specialWall.Orient();
-                            break;
-                        case 2:
-                            specialWall.orientation = "Horizontal Right";
-                            specialWall.Orient();
-                            break;
-                        case 3:
-                            specialWall.orientation = "Vertical Top";
-                            specialWall.Orient();
-                            break;
-                        case 4:
-                            wallOrientation = 0;
-                            break;
+                        specialWall.orientation = "Horizontal";
+                        specialWall.Orient();
+                        orientControl = 0;
+                        horizontal = false;
+                    }
+                    else if (horizontal == false && orientControl > 10)
+                    {
+                        specialWall.orientation = "Vertical";
+                        specialWall.Orient();
+                        orientControl = 0;
+                        horizontal = true;
                     }
                 }
             }
@@ -214,6 +210,8 @@ namespace DooDooDungeon
             }
             CollisionCheck();
             tickCounter++;
+            frameCounter++;
+            orientControl++;
             Refresh();
         }
 
@@ -274,7 +272,7 @@ namespace DooDooDungeon
 
             roll = new Roll(rollStartX, rollStartY, rollSize, "None");
             doodoo = new DooDoo(doodooStartX, doodooStartY, doodooSize, "None");
-            specialWall = new SpecialWall(74, 59, 77, 10, "None", "None");
+            specialWall = new SpecialWall(74, 59, 77, 10, "None", "Horizontal");
 
             turnCounter = true;
 

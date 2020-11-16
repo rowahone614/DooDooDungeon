@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <level>
   <roll>
-    <x>239</x>
-    <y>328</y>
+    <x>245</x>
+    <y>330</y>
     <Size>40</Size>
   </roll>
   <doodoo>
-    <x>18</x>
+    <x>20</x>
     <y>446</y>
     <Size>40</Size>
   </doodoo>
