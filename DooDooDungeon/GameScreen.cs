@@ -21,7 +21,7 @@ namespace DooDooDungeon
             OnStart();
         }
 
-        Boolean leftKeyDown, rightKeyDown, downKeyDown, upKeyDown, wKeyDown, aKeyDown, sKeyDown, dKeyDown;
+        Boolean leftKeyDown, rightKeyDown, downKeyDown, upKeyDown, wKeyDown, aKeyDown, sKeyDown, dKeyDown, spaceKeyDown, rKeyDown;
         Boolean turnCounter = true;
         Boolean levelLabelVisible = true;
         Boolean doodooTopCollision = false;
@@ -32,6 +32,7 @@ namespace DooDooDungeon
         Boolean rollBottomCollision = false;
         Boolean rollRightCollision = false;
         Boolean rollLeftCollision = false;
+        Boolean wallPlaced = false;
 
         int rollStartX = 20;
         int rollStartY = 20;
@@ -43,6 +44,8 @@ namespace DooDooDungeon
         int doodooSize = 40;
 
         int moveCounter = 0;
+
+        int wallOrientation;
 
         int grateX;
         int grateY;
@@ -70,6 +73,7 @@ namespace DooDooDungeon
 
         Roll roll;
         DooDoo doodoo;
+        SpecialWall specialWall;
 
         SoundPlayer moveSound = new SoundPlayer(Properties.Resources.MoveSound);
         SoundPlayer fartSound = new SoundPlayer(Properties.Resources.FartSound);
@@ -78,34 +82,89 @@ namespace DooDooDungeon
         {
             DooDooWallHitBox();
             RollWallHitBox();
-            HitBoxCreation();
-
-            if (turnCounter && moveCounter == 0)
+            GrateHitBox();
+            if (wallPlaced == false)
             {
-                if (wKeyDown && roll.y - 62 >= 0 && rollTopCollision == false)
+                if (wKeyDown && specialWall.y > 70)
                 {
-                    roll.direction = "Up";
-                    RollMove();
+                    specialWall.direction = "Up";
+                    specialWall.Move();
                 }
-                else if (aKeyDown && roll.x - 75 >= 0 && rollLeftCollision == false)
+                else if (aKeyDown && specialWall.x > 20)
                 {
-                    roll.direction = "Left";
-                    RollMove();
+                    specialWall.direction = "Left";
+                    specialWall.Move();
                 }
-                else if (sKeyDown && roll.y + 102 <= 500 && rollBottomCollision == false)
+                else if (sKeyDown && specialWall.y < 430)
                 {
-                    roll.direction = "Down";
-                    RollMove();
+                    specialWall.direction = "Down";
+                    specialWall.Move();
                 }
-                else if (dKeyDown && roll.x + 122 <= 600 && rollRightCollision == false)
+                else if (dKeyDown && specialWall.x < 510)
                 {
-                    roll.direction = "Right";
-                    RollMove();
+                    specialWall.direction = "Right";
+                    specialWall.Move();
                 }
-                CollisionNotice(rollTopCollision, wKeyDown);
-                CollisionNotice(rollLeftCollision, aKeyDown);
-                CollisionNotice(rollBottomCollision, sKeyDown);
-                CollisionNotice(rollRightCollision, dKeyDown);
+                else if (spaceKeyDown)
+                {
+                    wallPlaced = true;
+                }
+                else if (rKeyDown)
+                {
+                    wallOrientation++;
+                    switch (wallOrientation)
+                    {
+                        case 0:
+                            specialWall.orientation = "Horizontal Left";
+                            specialWall.Orient();
+                            break;
+                        case 1:
+                            specialWall.orientation = "Vertical Bottom";
+                            specialWall.Orient();
+                            break;
+                        case 2:
+                            specialWall.orientation = "Horizontal Right";
+                            specialWall.Orient();
+                            break;
+                        case 3:
+                            specialWall.orientation = "Vertical Top";
+                            specialWall.Orient();
+                            break;
+                        case 4:
+                            wallOrientation = 0;
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                if (turnCounter && moveCounter == 0)
+                {
+                    if (wKeyDown && roll.y - 62 >= 0 && rollTopCollision == false)
+                    {
+                        roll.direction = "Up";
+                        RollMove();
+                    }
+                    else if (aKeyDown && roll.x - 75 >= 0 && rollLeftCollision == false)
+                    {
+                        roll.direction = "Left";
+                        RollMove();
+                    }
+                    else if (sKeyDown && roll.y + 102 <= 500 && rollBottomCollision == false)
+                    {
+                        roll.direction = "Down";
+                        RollMove();
+                    }
+                    else if (dKeyDown && roll.x + 122 <= 600 && rollRightCollision == false)
+                    {
+                        roll.direction = "Right";
+                        RollMove();
+                    }
+                    CollisionNotice(rollTopCollision, wKeyDown, roll.x, roll.y);
+                    CollisionNotice(rollLeftCollision, aKeyDown, roll.x, roll.y);
+                    CollisionNotice(rollBottomCollision, sKeyDown, roll.x, roll.y);
+                    CollisionNotice(rollRightCollision, dKeyDown, roll.x, roll.y);
+                }
             }
             if (turnCounter == false && moveCounter > 0 && tickCounter > 10)
             {
@@ -129,10 +188,10 @@ namespace DooDooDungeon
                     doodoo.direction = "Right";
                     DooDooMove();
                 }
-                CollisionNotice(doodooTopCollision, upKeyDown);
-                CollisionNotice(doodooLeftCollision, leftKeyDown);
-                CollisionNotice(doodooBottomCollision, downKeyDown);
-                CollisionNotice(doodooRightCollision, rightKeyDown);
+                CollisionNotice(doodooTopCollision, upKeyDown, doodoo.x, doodoo.y);
+                CollisionNotice(doodooLeftCollision, leftKeyDown, doodoo.x, doodoo.y);
+                CollisionNotice(doodooBottomCollision, downKeyDown, doodoo.x, doodoo.y);
+                CollisionNotice(doodooRightCollision, rightKeyDown, doodoo.x, doodoo.y);
                 tickCounter = 0;
             }
 
@@ -198,11 +257,14 @@ namespace DooDooDungeon
                 turnCounter = true;
             }
         }
-        public void CollisionNotice(bool collision, bool keydown)
+        public void CollisionNotice(bool collision, bool keydown, int x, int y)
         {
+            Graphics g = this.CreateGraphics();
             if (collision && keydown)
             {
                 errorSound.Play();
+                g.FillRectangle(redBrush, x, y, 40, 40);
+                Thread.Sleep(200);
             }
         }
 
@@ -212,10 +274,11 @@ namespace DooDooDungeon
 
             roll = new Roll(rollStartX, rollStartY, rollSize, "None");
             doodoo = new DooDoo(doodooStartX, doodooStartY, doodooSize, "None");
+            specialWall = new SpecialWall(74, 59, 77, 10, "None", "None");
 
             turnCounter = true;
 
-            HitBoxCreation();
+            GrateHitBox();
             LevelReading();            
         }
 
@@ -249,6 +312,12 @@ namespace DooDooDungeon
                 case Keys.D:
                     dKeyDown = false;
                     break;
+                case Keys.Space:
+                    spaceKeyDown = false;
+                    break;
+                case Keys.R:
+                    rKeyDown = false;
+                    break;
             }
         }
 
@@ -280,6 +349,12 @@ namespace DooDooDungeon
                 case Keys.D:
                     dKeyDown = true;
                     break;
+                case Keys.Space:
+                    spaceKeyDown = true;
+                    break;
+                case Keys.R:
+                    rKeyDown = true;
+                    break;
             }
         }
         #endregion
@@ -290,6 +365,7 @@ namespace DooDooDungeon
              
             e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
             e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
+            e.Graphics.FillRectangle(redBrush, specialWall.x, specialWall.y, specialWall.width, specialWall.height);
 
             //e.Graphics.FillRectangle(redBrush, rightDooDooRec);
             //e.Graphics.FillRectangle(redBrush, leftDooDooRec);
@@ -368,23 +444,25 @@ namespace DooDooDungeon
              bottomDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y + 48, 10, 10);
              topDooDooRec = new Rectangle(doodoo.x + 15, doodoo.y - 14, 10, 10);
 
+            Rectangle specialWallRec = new Rectangle(specialWall.x, specialWall.y, specialWall.width, specialWall.height);
+
             foreach (Wall w in wallList)
             {
                 Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
                 
-                if (rightDooDooRec.IntersectsWith(wallRec) && doodooRightCollision == false)
+                if (rightDooDooRec.IntersectsWith(wallRec) || rightDooDooRec.IntersectsWith(specialWallRec) && doodooRightCollision == false)
                 {
                     doodooRightCollision = true;
                 }
-                if (leftDooDooRec.IntersectsWith(wallRec) && doodooLeftCollision == false)
+                if (leftDooDooRec.IntersectsWith(wallRec) || leftDooDooRec.IntersectsWith(specialWallRec) && doodooLeftCollision == false)
                 {
                     doodooLeftCollision = true;
                 }
-                if (topDooDooRec.IntersectsWith(wallRec) && doodooTopCollision == false)
+                if (topDooDooRec.IntersectsWith(wallRec) || topDooDooRec.IntersectsWith(specialWallRec) && doodooTopCollision == false)
                 {
                     doodooTopCollision = true;
                 }
-                if (bottomDooDooRec.IntersectsWith(wallRec) && doodooBottomCollision == false)
+                if (bottomDooDooRec.IntersectsWith(wallRec) || bottomDooDooRec.IntersectsWith(specialWallRec) && doodooBottomCollision == false)
                 {
                     doodooBottomCollision = true;
                 }
@@ -404,6 +482,7 @@ namespace DooDooDungeon
             }
             dKeyDown = false;
             turnCounter = true;
+            wallPlaced = false;
             moveCounter = 0;
         }
         public void RollWallHitBox()
@@ -415,29 +494,31 @@ namespace DooDooDungeon
             bottomRollRec = new Rectangle(roll.x + 11, roll.y + 40, 10, 10);
             topRollRec = new Rectangle(roll.x + 11, roll.y - 24, 10, 10);
 
+            Rectangle specialWallRec = new Rectangle(specialWall.x, specialWall.y, specialWall.width, specialWall.height);
+
             foreach (Wall w in wallList)
             {
                 Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
 
-                if (rightRollRec.IntersectsWith(wallRec) && rollRightCollision == false)
+                if (rightRollRec.IntersectsWith(wallRec) || rightRollRec.IntersectsWith(specialWallRec) && rollRightCollision == false)
                 {
                     rollRightCollision = true;
                 }
-                if (leftRollRec.IntersectsWith(wallRec) && rollLeftCollision == false)
+                if (leftRollRec.IntersectsWith(wallRec) || leftRollRec.IntersectsWith(specialWallRec) && rollLeftCollision == false)
                 {
                     rollLeftCollision = true;
                 }
-                if (topRollRec.IntersectsWith(wallRec) && rollTopCollision == false)
+                if (topRollRec.IntersectsWith(wallRec) || topRollRec.IntersectsWith(specialWallRec) && rollTopCollision == false)
                 {
                     rollTopCollision = true;
                 }
-                if (bottomRollRec.IntersectsWith(wallRec) && rollBottomCollision == false)
+                if (bottomRollRec.IntersectsWith(wallRec) || bottomRollRec.IntersectsWith(specialWallRec) && rollBottomCollision == false)
                 {
                     rollBottomCollision = true;
                 }
             }
         }
-        public void HitBoxCreation()
+        public void GrateHitBox()
         {
             Rectangle grateRec = new Rectangle(grateX, grateY, grateWidth, grateHeight);
             Rectangle rollRec = new Rectangle(roll.x, roll.y, roll.size, roll.size);
