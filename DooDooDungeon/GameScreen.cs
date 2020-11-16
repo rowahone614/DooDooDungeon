@@ -206,7 +206,7 @@ namespace DooDooDungeon
 
             if (turnCounter)
             {
-                turnLabel.Text = "Roll's Turn \n";
+                turnLabel.Text = "Roll's Turn";
             }
             else if (turnCounter == false)
             {
@@ -380,7 +380,7 @@ namespace DooDooDungeon
             //draw walls to screen
             foreach (Wall w in wallList)
             {
-                e.Graphics.FillRectangle(wallBrush, w.x, w.y, w.Width, w.Height);
+                e.Graphics.DrawImage(Properties.Resources.Wall, w.x, w.y, w.Width, w.Height);
             }
         }
 

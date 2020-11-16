@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <level>
   <roll>
-    <x>169</x>
-    <y>205</y>
+    <x>239</x>
+    <y>328</y>
     <Size>40</Size>
   </roll>
   <doodoo>
@@ -16,6 +16,54 @@
     <Width>60</Width>
     <Height>60</Height>
   </grate>
+  <wall>
+    <x>523</x>
+    <y>58</y>
+    <Width>77</Width>
+    <Height>10</Height>
+  </wall>
+  <wall>
+    <x>146</x>
+    <y>63</y>
+    <Width>10</Width>
+    <Height>63</Height>
+  </wall>
+  <wall>
+    <x>225</x>
+    <y>0</y>
+    <Width>10</Width>
+    <Height>63</Height>
+  </wall>
+  <wall>
+    <x>69</x>
+    <y>433</y>
+    <Width>157</Width>
+    <Height>10</Height>
+  </wall>
+  <wall>
+    <x>223</x>
+    <y>315</y>
+    <Width>10</Width>
+    <Height>63</Height>
+    <wall>
+      <x>292</x>
+      <y>315</y>
+      <Width>10</Width>
+      <Height>63</Height>
+    </wall>
+  </wall>
+  <wall>
+    <x>225</x>
+    <y>368</y>
+    <Width>77</Width>
+    <Height>10</Height>
+  </wall>
+  <wall>
+    <x>297</x>
+    <y>438</y>
+    <Width>10</Width>
+    <Height>63</Height>
+  </wall>
   <walls>
     <wall>
       <x>523</x>

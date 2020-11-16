@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.turnLabel = new System.Windows.Forms.Label();
             this.levelLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -40,8 +42,22 @@
             this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
             // 
-            // turnLabel
+            // label1
             // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(239, 328);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "label1";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(146, 63);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(10, 63);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "label2";
             this.turnLabel.BackColor = System.Drawing.Color.Transparent;
             this.turnLabel.Font = new System.Drawing.Font("Impact", 20F);
             this.turnLabel.ForeColor = System.Drawing.Color.Black;
@@ -68,8 +84,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::DooDooDungeon.Properties.Resources.Dungeon_Board;
+            this.BackgroundImage = global::DooDooDungeon.Properties.Resources._2020_11_16__2_;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.levelLabel);
             this.Controls.Add(this.turnLabel);
             this.DoubleBuffered = true;
@@ -84,6 +102,8 @@
 
         #endregion
         private System.Windows.Forms.Timer gameTimer;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label turnLabel;
         private System.Windows.Forms.Label levelLabel;
     }
