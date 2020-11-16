@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace DooDooDungeon
 {
@@ -16,7 +17,6 @@ namespace DooDooDungeon
         {
             InitializeComponent();
         }
-
         private void menuButton_Enter(object sender, EventArgs e)
         {
             menuButton.BackColor = Color.Brown;
@@ -63,6 +63,11 @@ namespace DooDooDungeon
             f.Controls.Add(gs);
 
             gs.Focus();
+        }
+
+        private void GameOverScreen_Load(object sender, EventArgs e)
+        {
+            Form1.themeSound.Play();
         }
     }
 }

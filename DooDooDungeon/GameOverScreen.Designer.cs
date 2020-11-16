@@ -119,6 +119,7 @@
             this.Controls.Add(this.titleLabel);
             this.Name = "GameOverScreen";
             this.Size = new System.Drawing.Size(600, 500);
+            this.Load += new System.EventHandler(this.GameOverScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dookiePicture)).EndInit();
             this.ResumeLayout(false);
 
