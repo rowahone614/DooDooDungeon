@@ -44,10 +44,10 @@
             // 
             this.turnLabel.BackColor = System.Drawing.Color.Transparent;
             this.turnLabel.Font = new System.Drawing.Font("Impact", 20F);
-            this.turnLabel.ForeColor = System.Drawing.Color.Black;
+            this.turnLabel.ForeColor = System.Drawing.Color.Azure;
             this.turnLabel.Location = new System.Drawing.Point(0, 15);
             this.turnLabel.Name = "turnLabel";
-            this.turnLabel.Size = new System.Drawing.Size(600, 34);
+            this.turnLabel.Size = new System.Drawing.Size(600, 101);
             this.turnLabel.TabIndex = 0;
             this.turnLabel.Text = "Roll\'s Turn";
             this.turnLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

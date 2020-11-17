@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.rollPicture = new System.Windows.Forms.PictureBox();
             this.dookiePicture = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.rollPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dookiePicture)).BeginInit();
             this.SuspendLayout();
@@ -69,7 +70,7 @@
             // 
             this.instructionsLabel.Font = new System.Drawing.Font("Impact", 14F);
             this.instructionsLabel.ForeColor = System.Drawing.Color.White;
-            this.instructionsLabel.Location = new System.Drawing.Point(0, 100);
+            this.instructionsLabel.Location = new System.Drawing.Point(0, 71);
             this.instructionsLabel.Name = "instructionsLabel";
             this.instructionsLabel.Size = new System.Drawing.Size(600, 52);
             this.instructionsLabel.TabIndex = 5;
@@ -82,7 +83,7 @@
             this.moveInstructionsLabel.BackColor = System.Drawing.Color.Transparent;
             this.moveInstructionsLabel.Font = new System.Drawing.Font("Impact", 14F);
             this.moveInstructionsLabel.ForeColor = System.Drawing.Color.White;
-            this.moveInstructionsLabel.Location = new System.Drawing.Point(0, 161);
+            this.moveInstructionsLabel.Location = new System.Drawing.Point(0, 123);
             this.moveInstructionsLabel.Name = "moveInstructionsLabel";
             this.moveInstructionsLabel.Size = new System.Drawing.Size(600, 92);
             this.moveInstructionsLabel.TabIndex = 6;
@@ -95,7 +96,7 @@
             this.distanceInstructionLabel.BackColor = System.Drawing.Color.Transparent;
             this.distanceInstructionLabel.Font = new System.Drawing.Font("Impact", 14F);
             this.distanceInstructionLabel.ForeColor = System.Drawing.Color.White;
-            this.distanceInstructionLabel.Location = new System.Drawing.Point(0, 236);
+            this.distanceInstructionLabel.Location = new System.Drawing.Point(0, 188);
             this.distanceInstructionLabel.Name = "distanceInstructionLabel";
             this.distanceInstructionLabel.Size = new System.Drawing.Size(600, 69);
             this.distanceInstructionLabel.TabIndex = 7;
@@ -144,11 +145,26 @@
             this.dookiePicture.TabIndex = 2;
             this.dookiePicture.TabStop = false;
             // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Impact", 14F);
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(0, 224);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(600, 69);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "At the start of each level Mr. Roll can place one wall wherever he wants\r\nin orde" +
+    "r to help block the Warrior. Use WASD to move the wall, R to rotate,\r\nand SPACE " +
+    "to place\r\n\r\n";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // InstructionsScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dookieLabel);
             this.Controls.Add(this.distanceInstructionLabel);
@@ -178,5 +194,6 @@
         private System.Windows.Forms.Label distanceInstructionLabel;
         private System.Windows.Forms.Label dookieLabel;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

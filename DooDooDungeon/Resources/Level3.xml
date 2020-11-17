@@ -1,25 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <level>
-  <roll>
-    <x>17</x>
-    <y>10</y>
-    <Size>40</Size>
-  </roll>
-  <doodoo>
-    <x>245</x>
-    <y>457</y>
-    <Size>40</Size>
-  </doodoo>
-  <grate>
-    <x>5</x>
-    <y>440</y>
-    <Size>60</Size>
-  </grate>
-  <grate>
-    <x>537</x>
-    <y>1</y>
-    <Size>60</Size>
-  </grate>
+	<roll>
+		<x>22</x>
+		<y>16</y>
+		<Size>40</Size>
+	</roll>
+	<doodoo>
+		<x>245</x>
+		<y>446</y>
+		<Size>40</Size>
+	</doodoo>
+	<grate>
+		<x>5</x>
+		<y>440</y>
+		<Width>60</Width>
+		<Height>60</Height>
+	</grate>
+	<grate>
+		<x>537</x>
+		<y>1</y>
+	</grate>
+	<redpowerup>
+		<x>330</x>
+		<y>330</y>
+		<Size>20</Size>
+	</redpowerup>
+	<bluepowerup>
+		<x>330</x>
+		<y>85</y>
+	</bluepowerup>
 	<walls>
 		<wall>
 			<x>0</x>
@@ -196,4 +205,5 @@
 			<Height>10</Height>
 		</wall>
 	</walls>
+
 </level>
