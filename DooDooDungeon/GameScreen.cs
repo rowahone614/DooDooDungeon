@@ -32,8 +32,9 @@ namespace DooDooDungeon
         Boolean rollBottomCollision = false;
         Boolean rollRightCollision = false;
         Boolean rollLeftCollision = false;
-        Boolean wallPlaced = false;
+        Boolean wallPlaced = true;
         Boolean horizontal = true;
+        Boolean powerupEnabled = true;
 
         int rollStartX = 20;
         int rollStartY = 20;
@@ -51,6 +52,10 @@ namespace DooDooDungeon
         int grateWidth;
         int grateHeight;
 
+        int powerupX;
+        int powerupY;
+        int powerupSize;
+
         int levelNumber = 1;
 
         List<Wall> wallList = new List<Wall>();
@@ -67,6 +72,7 @@ namespace DooDooDungeon
         Rectangle leftRollRec;
         Rectangle bottomRollRec;
         Rectangle topRollRec;
+        Rectangle powerupRec;
 
         int tickCounter = 0;
         int frameCounter = 0;
@@ -84,7 +90,7 @@ namespace DooDooDungeon
             DooDooWallHitBox();
             RollWallHitBox();
             GrateHitBox();
-            if (wallPlaced == false)
+            if (wallPlaced == false && powerupEnabled == false)
             {
                 if (wKeyDown && (specialWall.y > 75 || (specialWall.orientation == "Vertical" && specialWall.y > 0)) && frameCounter > 10)
                 {
@@ -113,6 +119,7 @@ namespace DooDooDungeon
                 else if (spaceKeyDown)
                 {
                     wallPlaced = true;
+                    turnCounter = false;
                 }
                 else if (rKeyDown)
                 {
@@ -200,7 +207,11 @@ namespace DooDooDungeon
                 levelLabel.Visible = false;
             }
 
-            if (turnCounter)
+            if (wallPlaced == false)
+            {
+                turnLabel.Text = "Place the wall";
+            }
+            else if (turnCounter && wallPlaced == true)
             {
                 turnLabel.Text = "Roll's Turn";
             }
@@ -228,6 +239,16 @@ namespace DooDooDungeon
                 f.Controls.Add(gos);
 
                 gos.Focus();
+            }
+            if (powerupEnabled)
+            {
+                powerupRec = new Rectangle(powerupX, powerupY, 20, 20);
+                if (roll.Collision(powerupRec))
+                {
+                    wallPlaced = false;
+                    powerupEnabled = false;
+                    turnCounter = true;
+                }
             }
         }
 
@@ -363,8 +384,15 @@ namespace DooDooDungeon
              
             e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
             e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
-            e.Graphics.FillRectangle(redBrush, specialWall.x, specialWall.y, specialWall.width, specialWall.height);
 
+            if (powerupEnabled)
+            {
+                e.Graphics.FillRectangle(redBrush, powerupX, powerupY, powerupSize, powerupSize);
+            }
+            else
+            {
+                e.Graphics.FillRectangle(redBrush, specialWall.x, specialWall.y, specialWall.width, specialWall.height);
+            }
             //e.Graphics.FillRectangle(redBrush, rightDooDooRec);
             //e.Graphics.FillRectangle(redBrush, leftDooDooRec);
             //e.Graphics.FillRectangle(redBrush, bottomDooDooRec);
@@ -407,6 +435,14 @@ namespace DooDooDungeon
                 reader.ReadToFollowing("Height");
                 grateHeight = Convert.ToInt32(reader.ReadString());
 
+                reader.ReadToFollowing("x");
+                powerupX = Convert.ToInt32(reader.ReadString());
+                reader.ReadToFollowing("y");
+                powerupY = Convert.ToInt32(reader.ReadString());
+                reader.ReadToFollowing("Size");
+                powerupSize = Convert.ToInt32(reader.ReadString());
+
+
                 reader.ReadToFollowing("walls");
 
                 while (reader.Read())
@@ -447,20 +483,20 @@ namespace DooDooDungeon
             foreach (Wall w in wallList)
             {
                 Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
-                
-                if (rightDooDooRec.IntersectsWith(wallRec) || rightDooDooRec.IntersectsWith(specialWallRec) && doodooRightCollision == false)
+
+                if (rightDooDooRec.IntersectsWith(wallRec) || (rightDooDooRec.IntersectsWith(specialWallRec) && powerupEnabled == false) && doodooRightCollision == false)
                 {
                     doodooRightCollision = true;
                 }
-                if (leftDooDooRec.IntersectsWith(wallRec) || leftDooDooRec.IntersectsWith(specialWallRec) && doodooLeftCollision == false)
+                if (leftDooDooRec.IntersectsWith(wallRec) || (leftDooDooRec.IntersectsWith(specialWallRec) && powerupEnabled == false) && doodooLeftCollision == false)
                 {
                     doodooLeftCollision = true;
                 }
-                if (topDooDooRec.IntersectsWith(wallRec) || topDooDooRec.IntersectsWith(specialWallRec) && doodooTopCollision == false)
+                if (topDooDooRec.IntersectsWith(wallRec) || (topDooDooRec.IntersectsWith(specialWallRec) && powerupEnabled == false) && doodooTopCollision == false)
                 {
                     doodooTopCollision = true;
                 }
-                if (bottomDooDooRec.IntersectsWith(wallRec) || bottomDooDooRec.IntersectsWith(specialWallRec) && doodooBottomCollision == false)
+                if (bottomDooDooRec.IntersectsWith(wallRec) || (bottomDooDooRec.IntersectsWith(specialWallRec) && powerupEnabled == false) && doodooBottomCollision == false)
                 {
                     doodooBottomCollision = true;
                 }
@@ -480,7 +516,7 @@ namespace DooDooDungeon
             }
             dKeyDown = false;
             turnCounter = true;
-            wallPlaced = false;
+            powerupEnabled = true;
             moveCounter = 0;
         }
         public void RollWallHitBox()
@@ -498,19 +534,19 @@ namespace DooDooDungeon
             {
                 Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
 
-                if (rightRollRec.IntersectsWith(wallRec) || rightRollRec.IntersectsWith(specialWallRec) && rollRightCollision == false)
+                if (rightRollRec.IntersectsWith(wallRec) || (rightRollRec.IntersectsWith(specialWallRec) && powerupEnabled == false) && rollRightCollision == false)
                 {
                     rollRightCollision = true;
                 }
-                if (leftRollRec.IntersectsWith(wallRec) || leftRollRec.IntersectsWith(specialWallRec) && rollLeftCollision == false)
+                if (leftRollRec.IntersectsWith(wallRec) || (leftRollRec.IntersectsWith(specialWallRec) && powerupEnabled == false) && rollLeftCollision == false)
                 {
                     rollLeftCollision = true;
                 }
-                if (topRollRec.IntersectsWith(wallRec) || topRollRec.IntersectsWith(specialWallRec) && rollTopCollision == false)
+                if (topRollRec.IntersectsWith(wallRec) || (topRollRec.IntersectsWith(specialWallRec) && powerupEnabled == false) && rollTopCollision == false)
                 {
                     rollTopCollision = true;
                 }
-                if (bottomRollRec.IntersectsWith(wallRec) || bottomRollRec.IntersectsWith(specialWallRec) && rollBottomCollision == false)
+                if (bottomRollRec.IntersectsWith(wallRec) || (bottomRollRec.IntersectsWith(specialWallRec) && powerupEnabled == false) && rollBottomCollision == false)
                 {
                     rollBottomCollision = true;
                 }

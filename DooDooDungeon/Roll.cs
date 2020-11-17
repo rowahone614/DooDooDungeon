@@ -40,5 +40,12 @@ namespace DooDooDungeon
             }
         }
 
+        public Boolean Collision(Rectangle r)
+        {
+            Rectangle powerupRec = new Rectangle(r.X, r.Y, r.Width, r.Height);
+            Rectangle rollRec = new Rectangle(x, y, size, size);
+
+            return (rollRec.IntersectsWith(powerupRec));
+        }
     }
 }

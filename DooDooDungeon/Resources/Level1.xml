@@ -16,6 +16,11 @@
     <Width>60</Width>
     <Height>60</Height>
   </grate>
+	<powerup>
+		<x>330</x>
+		<y>330</y>
+		<Size>20</Size>
+	</powerup>
   <wall>
     <x>523</x>
     <y>58</y>
