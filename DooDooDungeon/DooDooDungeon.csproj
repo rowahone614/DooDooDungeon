@@ -65,6 +65,7 @@
     <Compile Include="GameScreen.Designer.cs">
       <DependentUpon>GameScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Grate.cs" />
     <Compile Include="InstructionsScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>

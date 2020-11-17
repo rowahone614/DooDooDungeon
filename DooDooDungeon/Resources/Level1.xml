@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <level>
   <roll>
-    <x>239</x>
+    <x>247</x>
     <y>328</y>
     <Size>40</Size>
   </roll>
@@ -13,8 +13,12 @@
   <grate>
     <x>533</x>
     <y>1</y>
-    <Width>60</Width>
-    <Height>60</Height>
+    <Size>60</Size>
+  </grate>
+  <grate>
+    <x>84</x>
+    <y>65</y>
+    <Size>60</Size>
   </grate>
   <wall>
     <x>523</x>
@@ -129,6 +133,61 @@
       <x>69</x>
       <y>306</y>
       <Width>85</Width>
+      <Height>10</Height>
+    </wall>
+
+    <wall>
+      <x>228</x>
+      <y>315</y>
+      <Width>10</Width>
+      <Height>63</Height>
+    </wall>
+    <wall>
+      <x>296</x>
+      <y>315</y>
+      <Width>10</Width>
+      <Height>63</Height>
+    </wall>
+    <wall>
+      <x>228</x>
+      <y>368</y>
+      <Width>78</Width>
+      <Height>10</Height>
+    </wall>
+    <wall>
+      <x>296</x>
+      <y>437</y>
+      <Width>10</Width>
+      <Height>63</Height>
+    </wall>
+    <wall>
+      <x>70</x>
+      <y>432</y>
+      <Width>158</Width>
+      <Height>10</Height>
+    </wall>
+    <wall>
+      <x>223</x>
+      <y>64</y>
+      <Width>10</Width>
+      <Height>121</Height>
+    </wall>
+    <wall>
+      <x>0</x>
+      <y>182</y>
+      <Width>80</Width>
+      <Height>10</Height>
+    </wall>
+    <wall>
+      <x>78</x>
+      <y>62</y>
+      <Width>10</Width>
+      <Height>65</Height>
+    </wall>
+    <wall>
+      <x>78</x>
+      <y>116</y>
+      <Width>75</Width>
       <Height>10</Height>
     </wall>
   </walls>

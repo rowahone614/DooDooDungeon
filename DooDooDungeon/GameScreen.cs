@@ -34,11 +34,11 @@ namespace DooDooDungeon
         Boolean rollLeftCollision = false;
         Boolean wallPlaced = false;
 
-        int rollStartX = 20;
-        int rollStartY = 20;
+       // int rollStartX = 20;
+       // int rollStartY = 20;
 
-        int doodooStartX = 470;
-        int doodooStartY = 447;
+        //int doodooStartX = 470;
+       // int doodooStartY = 447;
 
         int rollSize = 40;
         int doodooSize = 40;
@@ -47,13 +47,9 @@ namespace DooDooDungeon
 
         int wallOrientation;
 
-        int grateX;
-        int grateY;
-        int grateWidth;
-        int grateHeight;
-
         int levelNumber = 1;
 
+        List<Grate> grateList = new List<Grate>();
         List<Wall> wallList = new List<Wall>();
 
         //used to draw walls on screen
@@ -74,6 +70,8 @@ namespace DooDooDungeon
         Roll roll;
         DooDoo doodoo;
         SpecialWall specialWall;
+        Grate grate;
+        Grate grate2;
 
         SoundPlayer moveSound = new SoundPlayer(Properties.Resources.MoveSound);
         SoundPlayer fartSound = new SoundPlayer(Properties.Resources.FartSound);
@@ -272,13 +270,13 @@ namespace DooDooDungeon
         {
             levelLabel.Text = "Level 1";
 
-            roll = new Roll(rollStartX, rollStartY, rollSize, "None");
-            doodoo = new DooDoo(doodooStartX, doodooStartY, doodooSize, "None");
+            //roll = new Roll(rollStartX, rollStartY, rollSize, "None");
+            //doodoo = new DooDoo(doodooStartX, doodooStartY, doodooSize, "None");
             specialWall = new SpecialWall(74, 59, 77, 10, "None", "None");
 
             turnCounter = true;
 
-            GrateHitBox();
+            //GrateHitBox();
             LevelReading();            
         }
 
@@ -360,9 +358,7 @@ namespace DooDooDungeon
         #endregion
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawImage(Properties.Resources.escapeGrate, grateX, grateY, grateWidth, grateHeight);
-             
+        {                 
             e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
             e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
             e.Graphics.FillRectangle(redBrush, specialWall.x, specialWall.y, specialWall.width, specialWall.height);
@@ -382,6 +378,11 @@ namespace DooDooDungeon
             {
                 e.Graphics.DrawImage(Properties.Resources.Wall, w.x, w.y, w.Width, w.Height);
             }
+
+                e.Graphics.DrawImage(Properties.Resources.escapeGrate, grate.x, grate.y, grate.size, grate.size);
+
+                e.Graphics.DrawImage(Properties.Resources.escapeGrate, grate2.x, grate2.y, grate2.size, grate2.size);
+
         }
 
         public void LevelReading()
@@ -391,23 +392,36 @@ namespace DooDooDungeon
                 XmlReader reader = XmlReader.Create("Resources/Level" + Convert.ToString(levelNumber) + ".xml", null);
 
                 reader.ReadToFollowing("x");
-                roll.x = Convert.ToInt32(reader.ReadString());
+                int rollStartX = Convert.ToInt32(reader.ReadString());
                 reader.ReadToFollowing("y");
-                roll.y = Convert.ToInt32(reader.ReadString());
+                int rollStartY = Convert.ToInt32(reader.ReadString());
+
+                roll = new Roll(rollStartX, rollStartY, rollSize, "None");
+               
+                reader.ReadToFollowing("x");
+                int doodooStartX = Convert.ToInt32(reader.ReadString());
+                reader.ReadToFollowing("y");
+                int doodooStartY = Convert.ToInt32(reader.ReadString());
+
+                doodoo = new DooDoo(doodooStartX, doodooStartY, doodooSize, "None");
 
                 reader.ReadToFollowing("x");
-                doodoo.x = Convert.ToInt32(reader.ReadString());
+                int grateX = Convert.ToInt32(reader.ReadString());
                 reader.ReadToFollowing("y");
-                doodoo.y = Convert.ToInt32(reader.ReadString());
+                int grateY = Convert.ToInt32(reader.ReadString());
+                reader.ReadToFollowing("Size");
+                int grateSize = Convert.ToInt32(reader.ReadString());
+
+                grate = new Grate(grateX, grateY, grateSize);
 
                 reader.ReadToFollowing("x");
-                grateX = Convert.ToInt32(reader.ReadString());
+                int grateX2 = Convert.ToInt32(reader.ReadString());
                 reader.ReadToFollowing("y");
-                grateY = Convert.ToInt32(reader.ReadString());
-                reader.ReadToFollowing("Width");
-                grateWidth = Convert.ToInt32(reader.ReadString());
-                reader.ReadToFollowing("Height");
-                grateHeight = Convert.ToInt32(reader.ReadString());
+                int grateY2 = Convert.ToInt32(reader.ReadString());
+                reader.ReadToFollowing("Size");
+                int grateSize2 = Convert.ToInt32(reader.ReadString());
+
+                grate2 = new Grate(grateX2, grateY2, grateSize2);
 
                 reader.ReadToFollowing("walls");
 
@@ -520,10 +534,11 @@ namespace DooDooDungeon
         }
         public void GrateHitBox()
         {
-            Rectangle grateRec = new Rectangle(grateX, grateY, grateWidth, grateHeight);
+            Rectangle grateRec = new Rectangle(grate.x, grate.y, grate.size, grate.size);
+            Rectangle grateRec2 = new Rectangle(grate2.x, grate2.y, grate2.size, grate2.size);
             Rectangle rollRec = new Rectangle(roll.x, roll.y, roll.size, roll.size);
 
-            if (rollRec.IntersectsWith(grateRec))
+            if (rollRec.IntersectsWith(grateRec) || rollRec.IntersectsWith(grateRec2))
             {
                 wallList.Clear();
                 levelNumber++;
