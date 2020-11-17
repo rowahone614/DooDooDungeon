@@ -9,17 +9,22 @@ namespace DooDooDungeon
 {
     public class Roll
     {
+        //Integer declaration for the roll object
         public int x, y, size;
+
+        //String declaration for the roll object
         public string direction;
 
         public Roll(int _rollX, int _rollY, int _rollSize, string _rollDirection)
         {
+            //Attribute assignment
             x = _rollX;
             y = _rollY;
             size = _rollSize;
             direction = _rollDirection;
         }
 
+        //Move behaviour
         public void Move()
         { 
             if (direction == "Right")
@@ -40,6 +45,7 @@ namespace DooDooDungeon
             }
         }
 
+        //Checks for collision between the powerup rectangles and the roll
         public Boolean Collision(Rectangle r)
         {
             Rectangle powerupRec = new Rectangle(r.X, r.Y, r.Width, r.Height);

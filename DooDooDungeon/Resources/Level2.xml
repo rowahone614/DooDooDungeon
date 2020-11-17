@@ -6,15 +6,14 @@
 		<Size>40</Size>
 	</roll>
 	<doodoo>
-		<x>95</x>
+		<x>247</x>
 		<y>134</y>
 		<Size>40</Size>
 	</doodoo>
 	<grate>
 		<x>237</x>
-		<y>443</y>
-		<Width>60</Width>
-		<Height>60</Height>
+		<y>380</y>
+		<Size>60</Size>
 	</grate>
 	<grate>
 		<x>456</x>
@@ -22,13 +21,13 @@
 		<Size>60</Size>
 	</grate>
 	<redpowerup>
-		<x>330</x>
-		<y>330</y>
+		<x>328</x>
+		<y>276</y>
 		<Size>20</Size>
 	</redpowerup>
 	<bluepowerup>
-		<x>330</x>
-		<y>85</y>
+		<x>180</x>
+		<y>394</y>
 	</bluepowerup>
 	<walls>
 		<wall>
@@ -54,12 +53,6 @@
 			<y>376</y>
 			<Width>10</Width>
 			<Height>124</Height>
-		</wall>
-		<wall>
-			<x>366</x>
-			<y>310</y>
-			<Width>10</Width>
-			<Height>65</Height>
 		</wall>
 		<wall>
 			<x>366</x>
@@ -96,12 +89,12 @@
 			<x>74</x>
 			<y>187</y>
 			<Width>10</Width>
-			<Height>64</Height>
+			<Height>128</Height>
 		</wall>
 		<wall>
 			<x>77</x>
 			<y>179</y>
-			<Width>148</Width>
+			<Width>228</Width>
 			<Height>10</Height>
 		</wall>
 		<wall>
@@ -128,15 +121,15 @@
 			<Width>10</Width>
 			<Height>128</Height>
 		</wall>
-    <wall>
-      <x>218</x>
-      <y>118</y>
-      <Width>10</Width>
-      <Height>65</Height>
-    </wall>
 		<wall>
-			<x>218</x>
+			<x>298</x>
 			<y>118</y>
+			<Width>10</Width>
+			<Height>65</Height>
+		</wall>
+		<wall>
+			<x>300</x>
+			<y>250</y>
 			<Width>10</Width>
 			<Height>65</Height>
 		</wall>

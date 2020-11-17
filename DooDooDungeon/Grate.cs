@@ -8,10 +8,12 @@ namespace DooDooDungeon
 {
     public class Grate
     {
+        //Integer declaration for the grate object
         public int x, y, size;
 
         public Grate(int _grateX, int _grateY, int _grateSize)
         {
+            //Attribute assignment
             x = _grateX;
             y = _grateY;
             size = _grateSize;

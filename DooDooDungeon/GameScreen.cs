@@ -21,6 +21,12 @@ namespace DooDooDungeon
             OnStart();
         }
 
+        //Jackson Rawes & Rowan Honeywell
+        //Doo Doo Dungeon
+        //A turn based game where player one tries to escape from player two
+        //November 17th, 2020
+
+        //Boolean declaration
         Boolean leftKeyDown, rightKeyDown, downKeyDown, upKeyDown, wKeyDown, aKeyDown, sKeyDown, dKeyDown, spaceKeyDown, rKeyDown;
         Boolean turnCounter = true;
         Boolean levelLabelVisible = true;
@@ -38,23 +44,16 @@ namespace DooDooDungeon
         Boolean bluepowerupEnabled = true;
         Boolean bluepowerupCompleted = false;
 
-       // int rollStartX = 20;
-       // int rollStartY = 20;
 
-        //int doodooStartX = 470;
-       // int doodooStartY = 447;
-
+        //Width and heights of playable characters 
         int rollSize = 40;
         int doodooSize = 40;
 
+        //Variables that keep track of how many times each character has moved
         int moveCounter = 0;
         int rollMoveCounter = 0;
 
-        int grateX;
-        int grateY;
-        int grateWidth;
-        int grateHeight;
-
+        //Power-Up attributes
         int redpowerupX;
         int redpowerupY;
 
@@ -63,15 +62,17 @@ namespace DooDooDungeon
 
         int powerupSize;
         
+        //Variable that controls which XML file the code pulls from
         int levelNumber = 1;
 
-        List<Grate> grateList = new List<Grate>();
+        //Holds each wall in order to keep track of walls
         List<Wall> wallList = new List<Wall>();
 
-        //used to draw walls on screen
+        //used to draw power-ups on screen
         SolidBrush blueBrush = new SolidBrush(Color.Blue);
         SolidBrush redBrush = new SolidBrush(Color.Red);
 
+        //Establishes hitboxes for characters and power-ups
         Rectangle rightDooDooRec;
         Rectangle leftDooDooRec;
         Rectangle bottomDooDooRec;
@@ -83,25 +84,35 @@ namespace DooDooDungeon
         Rectangle redpowerupRec;
         Rectangle bluepowerupRec;
 
+        //Used in game timer 
         int tickCounter = 0;
         int frameCounter = 0;
-        int orientControl = 0;
 
+        //Keeps track of custom wall rotations
+        int orientControl = 0;
+        
+        //Keeps track of "blue moves"
+        int bluepowerupControl = 0;
+
+        //Interactible objects in the game world
         Roll roll;
         DooDoo doodoo;
         SpecialWall specialWall;
         Grate grate;
         Grate grate2;
 
+        //Game sounds
         SoundPlayer moveSound = new SoundPlayer(Properties.Resources.MoveSound);
         SoundPlayer fartSound = new SoundPlayer(Properties.Resources.FartSound);
         SoundPlayer errorSound = new SoundPlayer(Properties.Resources.ErrorSound);
+
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             DooDooWallHitBox();
             RollWallHitBox();
             GrateHitBox();
 
+            //Controls movement for power-up wall
             if (wallPlaced == false && redpowerupEnabled == false)
             {
                 if (wKeyDown && (specialWall.y > 75 || (specialWall.orientation == "Vertical" && specialWall.y > 0)) && frameCounter > 10)
@@ -151,6 +162,8 @@ namespace DooDooDungeon
                     }
                 }
             }
+
+            //Mr. Roll movement
             else
             {
                 if (turnCounter && moveCounter == 0)
@@ -175,12 +188,16 @@ namespace DooDooDungeon
                         roll.direction = "Right";
                         RollMove();
                     }
+
+                    //Informs player that their desired move is invalid
                     CollisionNotice(rollTopCollision, wKeyDown, roll.x, roll.y);
                     CollisionNotice(rollLeftCollision, aKeyDown, roll.x, roll.y);
                     CollisionNotice(rollBottomCollision, sKeyDown, roll.x, roll.y);
                     CollisionNotice(rollRightCollision, dKeyDown, roll.x, roll.y);
                 }
             }
+
+            //Waste Warrior movement
             if (turnCounter == false && moveCounter > 0 && tickCounter > 10)
             {
                 if (upKeyDown && doodoo.y - 62 >= 0 && doodooTopCollision == false)
@@ -203,6 +220,8 @@ namespace DooDooDungeon
                     doodoo.direction = "Right";
                     DooDooMove();
                 }
+
+                //Informs player that their desired move is invalid
                 CollisionNotice(doodooTopCollision, upKeyDown, doodoo.x, doodoo.y);
                 CollisionNotice(doodooLeftCollision, leftKeyDown, doodoo.x, doodoo.y);
                 CollisionNotice(doodooBottomCollision, downKeyDown, doodoo.x, doodoo.y);
@@ -210,6 +229,7 @@ namespace DooDooDungeon
                 tickCounter = 0;
             }
 
+            //Informs player of level number before the first move of the round
             if (levelLabelVisible)
             {
                 levelLabel.Visible = true;
@@ -219,27 +239,44 @@ namespace DooDooDungeon
                 levelLabel.Visible = false;
             }
 
+            //Instructs player to place wall after red power-up is placed
             if (wallPlaced == false)
             {
                 turnLabel.Text = "Place the wall";
             }
             else if (turnCounter && wallPlaced == true)
             {
+                //Instructs player to move multiple times after blue power-up is placed
                 turnLabel.Text = "Roll's Turn";
+                if (bluepowerupEnabled == false && bluepowerupCompleted == false)
+                {
+                    turnLabel.Text = "Two extra moves for Mr. Roll";
+                }
             }
+            //If Roll has exhausted turn capibilities display that it is Warrior's turn
             else if (turnCounter == false)
             {
                 turnLabel.Text = "Waste Warrior's Turn";
             }
-            CollisionCheck();
+
+            //Updates all timers and counters
+            if (bluepowerupEnabled == false && bluepowerupCompleted == false)
+            {
+                bluepowerupControl++;
+            }  
             tickCounter++;
             frameCounter++;
             orientControl++;
+
+            // Checks for collisions
+            CollisionCheck();
+
             Refresh();
         }
 
         public void CollisionCheck()
         {
+            //Checks to see if Roll has lost the game and takes user to game over screen
             if (doodoo.Collision(roll))
             {
                 gameTimer.Enabled = false;
@@ -252,6 +289,8 @@ namespace DooDooDungeon
 
                 gos.Focus();
             }
+
+            //Removes power-up wall
             if (redpowerupEnabled)
             {
                 redpowerupRec = new Rectangle(redpowerupX, redpowerupY, powerupSize, powerupSize);
@@ -262,6 +301,8 @@ namespace DooDooDungeon
                     turnCounter = true;
                 }
             }
+
+            //Removes power-up speed boost
             if (bluepowerupEnabled)
             {
                 bluepowerupRec = new Rectangle(bluepowerupX, bluepowerupY, powerupSize, powerupSize);
@@ -274,6 +315,7 @@ namespace DooDooDungeon
 
         public void RollMove()
         {
+            //Controls Roll player movement and blue power-up movement
             moveSound.Play();
 
             if (bluepowerupEnabled || bluepowerupCompleted)
@@ -282,25 +324,34 @@ namespace DooDooDungeon
                 moveCounter++;
                 turnCounter = false;
             }
-            else
+            else if (bluepowerupEnabled == false && bluepowerupCompleted == false)
             {
-                roll.Move();
-                rollMoveCounter++;
-                if (rollMoveCounter == 1)
+                if (bluepowerupControl > 10)
                 {
-                    bluepowerupCompleted = true;
+                    roll.Move();
+                    rollMoveCounter++;
+                    if (rollMoveCounter == 3)
+                    {
+                        bluepowerupCompleted = true;
+                        turnCounter = false;
+                    }
+                    bluepowerupControl = 0;
                 }
             }
             levelLabelVisible = false;
         }
         public void DooDooMove()
         {
+            //Contols Doodoo player movement
             fartSound.Play();
             levelLabelVisible = false;
+
+            //Ends turn
             SwitchMove();
         }
         public void SwitchMove()
         {
+            //Switches control from one player to another after turn ends
             doodoo.Move();
             moveCounter++;
             if (moveCounter == 3)
@@ -309,8 +360,10 @@ namespace DooDooDungeon
                 turnCounter = true;
             }
         }
+
         public void CollisionNotice(bool collision, bool keydown, int x, int y)
         {
+            //If player tries to move into wall, informs player that their move is invalid
             Graphics g = this.CreateGraphics();
             if (collision && keydown)
             {
@@ -322,18 +375,20 @@ namespace DooDooDungeon
 
         public void OnStart()
         {
+            //Display level on program start
             levelLabel.Text = "Level 1";
 
-            roll = new Roll(rollStartX, rollStartY, rollSize, "None");
-            doodoo = new DooDoo(doodooStartX, doodooStartY, doodooSize, "None");
+            //Creates new power-up wall object
             specialWall = new SpecialWall(72, 59, 77, 10, "None", "Horizontal");
 
+            //Begins turn count
             turnCounter = true;
 
-            //GrateHitBox();
+            //Reads given XML file
             LevelReading();            
         }
 
+        //Which key presses do what 
         #region Key Declaration
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
@@ -412,33 +467,28 @@ namespace DooDooDungeon
         #endregion
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
-        {                 
+        {       
+            //Draws characters to screen
             e.Graphics.DrawImage(Properties.Resources.New_Piskel__2_, roll.x, roll.y, roll.size, roll.size);
             e.Graphics.DrawImage(Properties.Resources.Waste_Warroir, doodoo.x, doodoo.y, doodoo.size, doodoo.size);
 
+            //Draws red power-up to screen
             if (redpowerupEnabled)
             {
                 e.Graphics.FillRectangle(redBrush, redpowerupX, redpowerupY, powerupSize, powerupSize);
             }
+
+            //If red power-up is picked up, erase it from the game screen
             else
             {
                 e.Graphics.FillRectangle(redBrush, specialWall.x, specialWall.y, specialWall.width, specialWall.height);
             }
 
+            //Draws blue power-up to screen
             if (bluepowerupEnabled)
             {
                 e.Graphics.FillRectangle(blueBrush, bluepowerupX, bluepowerupY, powerupSize, powerupSize);
             }
-
-            //e.Graphics.FillRectangle(redBrush, rightDooDooRec);
-            //e.Graphics.FillRectangle(redBrush, leftDooDooRec);
-            //e.Graphics.FillRectangle(redBrush, bottomDooDooRec);
-            //e.Graphics.FillRectangle(redBrush, topDooDooRec);
-
-            //e.Graphics.FillRectangle(redBrush, rightRollRec);
-            //e.Graphics.FillRectangle(redBrush, leftRollRec);
-            //e.Graphics.FillRectangle(redBrush, bottomRollRec);
-            //e.Graphics.FillRectangle(redBrush, topRollRec);
 
             //draw walls to screen
             foreach (Wall w in wallList)
@@ -446,6 +496,7 @@ namespace DooDooDungeon
                 e.Graphics.DrawImage(Properties.Resources.Wall, w.x, w.y, w.Width, w.Height);
             }
 
+            //Draw sewer grates to screen
                 e.Graphics.DrawImage(Properties.Resources.escapeGrate, grate.x, grate.y, grate.size, grate.size);
 
                 e.Graphics.DrawImage(Properties.Resources.escapeGrate, grate2.x, grate2.y, grate2.size, grate2.size);
@@ -454,6 +505,7 @@ namespace DooDooDungeon
 
         public void LevelReading()
         {
+           //Uses level number to determine which level XML to read then adds information from XML to their rese
             if (levelNumber < 4)
             {
                 XmlReader reader = XmlReader.Create("Resources/Level" + Convert.ToString(levelNumber) + ".xml", null);
@@ -485,10 +537,8 @@ namespace DooDooDungeon
                 int grateX2 = Convert.ToInt32(reader.ReadString());
                 reader.ReadToFollowing("y");
                 int grateY2 = Convert.ToInt32(reader.ReadString());
-                reader.ReadToFollowing("Size");
-                int grateSize2 = Convert.ToInt32(reader.ReadString());
 
-                grate2 = new Grate(grateX2, grateY2, grateSize2);
+                grate2 = new Grate(grateX2, grateY2, grateSize);
 
                 reader.ReadToFollowing("x");
                 redpowerupX = Convert.ToInt32(reader.ReadString());
@@ -531,6 +581,7 @@ namespace DooDooDungeon
         
         public void DooDooWallHitBox()
         {
+            //Checks if player rectangles are intersecting with wall rectangles
             doodooRightCollision = doodooLeftCollision = doodooBottomCollision = doodooTopCollision = false;
 
              rightDooDooRec = new Rectangle(doodoo.x + 53, doodoo.y + 18, 10, 10);
@@ -540,6 +591,7 @@ namespace DooDooDungeon
 
             Rectangle specialWallRec = new Rectangle(specialWall.x, specialWall.y, specialWall.width, specialWall.height);
 
+            //Creates hotboxes for each wall
             foreach (Wall w in wallList)
             {
                 Rectangle wallRec = new Rectangle(w.x, w.y, w.Width, w.Height);
@@ -564,6 +616,7 @@ namespace DooDooDungeon
         }
         public void LevelChange()
         {
+            //Changes XML being read
             levelLabelVisible = true;
             switch (levelNumber)
             {
@@ -581,10 +634,13 @@ namespace DooDooDungeon
             turnCounter = true;
             redpowerupEnabled = true;
             bluepowerupEnabled = true;
+            bluepowerupCompleted = false;
+            rollMoveCounter = 0;
             moveCounter = 0;
         }
         public void RollWallHitBox()
         {
+            //Roll player hitbox check/creation
             rollTopCollision = rollBottomCollision = rollLeftCollision = rollRightCollision = false;
 
             rightRollRec = new Rectangle(roll.x + 50, roll.y + 8, 10, 10);
@@ -618,6 +674,7 @@ namespace DooDooDungeon
         }
         public void GrateHitBox()
         {
+            //Escape grate hitbox check/creation
             Rectangle grateRec = new Rectangle(grate.x, grate.y, grate.size, grate.size);
             Rectangle grateRec2 = new Rectangle(grate2.x, grate2.y, grate2.size, grate2.size);
             Rectangle rollRec = new Rectangle(roll.x, roll.y, roll.size, roll.size);

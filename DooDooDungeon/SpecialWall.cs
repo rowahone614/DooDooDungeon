@@ -8,9 +8,11 @@ namespace DooDooDungeon
 {
     class SpecialWall
     {
+        //Declaration of s[ecial wall attributes
         public int x, y, width, height;
         public string direction, orientation;
 
+        //Special wall constructor method
         public SpecialWall(int _x, int _y, int _width, int _height, string _direction, string _orientation)
         {
             x = _x;
@@ -21,6 +23,7 @@ namespace DooDooDungeon
             orientation = _orientation;
         }
 
+        //Controls how far each key press moves the special wall
         public void Move()
         {
             if (direction == "Right")

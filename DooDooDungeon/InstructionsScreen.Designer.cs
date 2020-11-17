@@ -39,6 +39,7 @@
             this.rollPicture = new System.Windows.Forms.PictureBox();
             this.dookiePicture = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.rollPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dookiePicture)).BeginInit();
             this.SuspendLayout();
@@ -57,7 +58,7 @@
             // menuButton
             // 
             this.menuButton.Font = new System.Drawing.Font("Impact", 17F);
-            this.menuButton.Location = new System.Drawing.Point(199, 308);
+            this.menuButton.Location = new System.Drawing.Point(200, 376);
             this.menuButton.Name = "menuButton";
             this.menuButton.Size = new System.Drawing.Size(208, 45);
             this.menuButton.TabIndex = 4;
@@ -108,7 +109,7 @@
             this.dookieLabel.AutoSize = true;
             this.dookieLabel.Font = new System.Drawing.Font("Impact", 15F);
             this.dookieLabel.ForeColor = System.Drawing.Color.White;
-            this.dookieLabel.Location = new System.Drawing.Point(76, 374);
+            this.dookieLabel.Location = new System.Drawing.Point(77, 442);
             this.dookieLabel.Name = "dookieLabel";
             this.dookieLabel.Size = new System.Drawing.Size(129, 25);
             this.dookieLabel.TabIndex = 8;
@@ -119,7 +120,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Impact", 15F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(423, 374);
+            this.label1.Location = new System.Drawing.Point(424, 442);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 25);
             this.label1.TabIndex = 9;
@@ -128,7 +129,7 @@
             // rollPicture
             // 
             this.rollPicture.Image = ((System.Drawing.Image)(resources.GetObject("rollPicture.Image")));
-            this.rollPicture.Location = new System.Drawing.Point(428, 308);
+            this.rollPicture.Location = new System.Drawing.Point(429, 376);
             this.rollPicture.Name = "rollPicture";
             this.rollPicture.Size = new System.Drawing.Size(68, 63);
             this.rollPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -138,7 +139,7 @@
             // dookiePicture
             // 
             this.dookiePicture.Image = ((System.Drawing.Image)(resources.GetObject("dookiePicture.Image")));
-            this.dookiePicture.Location = new System.Drawing.Point(108, 308);
+            this.dookiePicture.Location = new System.Drawing.Point(109, 376);
             this.dookiePicture.Name = "dookiePicture";
             this.dookiePicture.Size = new System.Drawing.Size(68, 63);
             this.dookiePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -154,16 +155,29 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(600, 69);
             this.label2.TabIndex = 10;
-            this.label2.Text = "At the start of each level Mr. Roll can place one wall wherever he wants\r\nin orde" +
-    "r to help block the Warrior. Use WASD to move the wall, R to rotate,\r\nand SPACE " +
-    "to place\r\n\r\n";
+            this.label2.Text = "The red powerup allows Mr. Roll to place one wall wherever he wants\r\nin order to " +
+    "help block the Warrior. Use WASD to move the wall, R to rotate,\r\nand SPACE to pl" +
+    "ace\r\n\r\n";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Impact", 14F);
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(0, 293);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(600, 69);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "The blue powerup gives Mr. Roll 2 extra moves, use them wisely";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InstructionsScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dookieLabel);
@@ -195,5 +209,6 @@
         private System.Windows.Forms.Label dookieLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

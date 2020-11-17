@@ -13,16 +13,16 @@
 	<grate>
 		<x>5</x>
 		<y>440</y>
-		<Width>60</Width>
-		<Height>60</Height>
+		<Size>60</Size>
 	</grate>
 	<grate>
 		<x>537</x>
 		<y>1</y>
+		<Size>60</Size>
 	</grate>
 	<redpowerup>
-		<x>330</x>
-		<y>330</y>
+		<x>105</x>
+		<y>400</y>
 		<Size>20</Size>
 	</redpowerup>
 	<bluepowerup>
@@ -68,7 +68,7 @@
 		</wall>
 		<wall>
 			<x>69</x>
-			<y>274</y>
+			<y>250</y>
 			<Width>10</Width>
 			<Height>68</Height>
 		</wall>
